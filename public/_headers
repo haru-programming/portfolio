@@ -1,12 +1,20 @@
 # Cloudflare Pages のヘッダ設定。out/_headers として配信される。
-# 後に書いた規則が同名ヘッダを上書きする。
+#
+# 注意: 複数の規則が同じリクエストに当たった場合、同名ヘッダは上書きではなく
+# カンマで連結される。後勝ちの仕組みは無い（削除は "! ヘッダ名" のみ）。
+# https://developers.cloudflare.com/pages/configuration/headers/
+#
+# そのため /* に Cache-Control を書くと、静的アセットで
+#   public, max-age=0, must-revalidate, public, max-age=31536000, immutable
+# となり、先に来る max-age=0 が効いて immutable が無効化される。
+# Cache-Control は重複しないパスにだけ書くこと。
 
 /*
-  Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
 # Next.js がファイル名にハッシュを付けるので永続キャッシュして安全。
 # サブセットした woff2 もここに入る。
+# HTML 側の Cache-Control は Cloudflare Pages の既定（再検証あり）に任せる。
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
