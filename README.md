@@ -56,16 +56,27 @@ postbuild で `out/**/*.html` の可視テキストを走査し、生成済み w
 
 ## 計測結果
 
-Lighthouse（desktop preset）:
+本番（Cloudflare Pages）に対する Lighthouse（desktop preset）:
 
-| | Performance | Accessibility | LCP | CLS |
-|---|---|---|---|---|
-| `/` | 100 | 100 | 0.8s | 0 |
-| `/about` | 100 | 100 | 0.8s | 0 |
+| | Performance | Accessibility | Best Practices | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| `/` | 100 | 100 | 100 | 100 | 0.4s | 0 | 0ms |
+| `/about` | 100 | 100 | 100 | 100 | 0.6s | 0 | 0ms |
 
-LCP 要素は Hero の `h1`（Jost）です。背景の WebGL キャンバスは
+TOP の LCP 要素は Hero の `h1`（Jost）です。背景の WebGL キャンバスは
 [LCP の候補要素ではない](https://web.dev/articles/lcp)ため（CSS グラデーションも同様）、
 シェーダーの描画は LCP に影響しません。preload しているのは Jost だけです。
+
+TOP ページが取得するフォントは Jost と IBM Plex Mono の 2 ファイル・16.9KB だけです。
+和文が 1 字も無いので、`unicode-range` により明朝はリクエストされません。
+
+### キャッシュ
+
+`public/_headers` で `/_next/static/*` に `immutable` を付けています。
+Cloudflare Pages の `_headers` は、複数の規則が同じリクエストに当たると同名ヘッダを
+**上書きせずカンマで連結する**（後勝ちの仕組みは無い）ため、`/*` に `Cache-Control` を
+書くと `max-age=0, must-revalidate, ..., immutable` となって先勝ちの `max-age=0` が効き、
+`immutable` が無効化されます。`Cache-Control` は重複しないパスにだけ書いています。
 
 ## 開発
 
