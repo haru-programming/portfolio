@@ -116,9 +116,8 @@ export default async function Home() {
                     <span className={styles.rowMeta}>
                       {entry.stack.join(' · ')} · {entry.year}
                     </span>
-                    <span className={`${styles.rowArrow} ${styles.arrow}`}>
-                      →
-                    </span>
+                    {/* 行ごと動かすので、矢印だけを動かす .arrow は付けない */}
+                    <span className={styles.rowArrow}>→</span>
                   </a>
                 </li>
               ))}

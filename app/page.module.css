@@ -189,23 +189,38 @@
   color: var(--meta);
 }
 
-/* list-row: index / title / stack / arrow のグリッド。塗りなし、ヘアライン区切り */
+/**
+ * 区切りのヘアラインは li 側に置く。
+ * a 側に置くと、ホバーで行をずらしたときに罫線まで一緒に動いて
+ * 区切り線がガタつく。枠は動かさず中身だけ滑らせたい。
+ */
+.lab li {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.lab li:first-child {
+  border-top: 1px solid var(--hairline);
+}
+
+/* list-row: index / title / stack / arrow のグリッド。塗りなし */
 .row {
   display: grid;
   grid-template-columns: 56px 1fr 190px 24px;
   align-items: center;
   gap: 20px;
   padding: 26px 0;
-  border-bottom: 1px solid var(--hairline);
-  transition: border-bottom-color 200ms ease;
+  transition: transform 200ms ease;
 }
 
-.row:hover {
-  border-bottom-color: var(--hairline-strong);
-}
-
-.lab li:first-child .row {
-  border-top: 1px solid var(--hairline);
+/**
+ * ホバーした行だけを右へ 12px 送る。
+ * 影も塗りも使えないので、動きそのものを応答にする。
+ * 12px は spacing ラダーの sm。刻みから外れた値を持ち込まない。
+ * キーボード操作でも同じ反応を返す。
+ */
+.row:hover,
+.row:focus-visible {
+  transform: translateX(var(--space-sm));
 }
 
 .rowIndex {
