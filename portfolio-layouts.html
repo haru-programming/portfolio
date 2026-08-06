@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja" data-layout="index">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio — 3 layout directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=EB+Garamond:ital,wght@0,400;1,400&family=Zen+Old+Mincho:wght@400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F6F2F0; --surface:#ECE6E3; --surface-2:#E4DCD8;
+  --hairline:#E0D8D3; --hairline-strong:#CCC0BA;
+  --ink:#332C2A; --body:#5C534F; --meta:#6E645F; --accent:#E8A697;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--canvas);color:var(--ink);font-family:'EB Garamond','Zen Old Mincho',serif;-webkit-font-smoothing:antialiased}
+.d{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase}
+.m{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;font-size:11px;letter-spacing:2px;color:var(--meta)}
+a{color:inherit;text-decoration:none}
+
+.switch{position:fixed;right:0;bottom:0;z-index:60;display:flex;background:var(--canvas);border-top:1px solid var(--hairline);border-left:1px solid var(--hairline)}
+.switch em{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--meta);padding:12px 14px;border-right:1px solid var(--hairline);font-style:normal;align-self:center}
+.switch button{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:none;border:0;border-right:1px solid var(--hairline);color:var(--meta);padding:12px 16px;cursor:pointer}
+.switch button:last-child{border-right:0}
+.switch button[data-on]{color:var(--ink)}
+.switch button[data-on]::before{content:'';display:inline-block;width:6px;height:6px;background:var(--accent);margin-right:8px;vertical-align:1px}
+
+main{display:none}
+html[data-layout="index"] #lay-index,
+html[data-layout="cinema"] #lay-cinema,
+html[data-layout="split"] #lay-split{display:block}
+
+.wordmark{font-family:'Jost',sans-serif;font-weight:400;font-size:14px;letter-spacing:6px;text-transform:uppercase}
+.navlinks{display:flex;gap:32px;list-style:none}
+.navlinks a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--body)}
+h2{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:28px;letter-spacing:2px}
+
+/* ============ A. INDEX ============ */
+#lay-index .nav{position:sticky;top:0;z-index:40;background:var(--canvas);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid var(--hairline)}
+#lay-index .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+#lay-index .hero{padding:120px 0 80px}
+#lay-index h1{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:52px;line-height:1.15;letter-spacing:4px;margin:28px 0 0}
+#lay-index .hero p{font-size:16px;line-height:2;color:var(--body);max-width:32em;margin-top:32px}
+#lay-index .shead{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:20px;margin-top:100px}
+#lay-index .ix{border-top:1px solid var(--ink)}
+#lay-index .ixrow{display:grid;grid-template-columns:52px 1fr 200px 90px 24px;align-items:center;gap:20px;padding:26px 12px;border-bottom:1px solid var(--hairline);position:relative;transition:background .25s}
+#lay-index .ixrow:hover{background:var(--surface)}
+#lay-index .ixrow::before{content:'';position:absolute;left:0;top:50%;width:0;height:6px;background:var(--accent);transform:translateY(-50%);transition:width .25s}
+#lay-index .ixrow:hover::before{width:6px}
+#lay-index .ixrow .t{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:22px;letter-spacing:1.5px}
+#lay-index .ixrow .r,#lay-index .ixrow .y,#lay-index .ixrow .a{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+#lay-index .ixrow .y{text-align:right}
+#lay-index .ixrow .a{text-align:right}
+#lay-index .prev{position:fixed;right:60px;top:50%;transform:translateY(-50%);width:300px;aspect-ratio:4/3;background:var(--surface-2);border:1px solid var(--hairline);opacity:0;transition:opacity .3s;pointer-events:none;z-index:10;display:flex;align-items:flex-end;padding:14px}
+#lay-index .prev span{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+
+/* ============ B. CINEMA ============ */
+#lay-cinema .nav{position:fixed;top:0;left:0;right:0;z-index:40;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+#lay-cinema .stage{height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 40px 80px;border-bottom:1px solid var(--hairline);position:relative}
+#lay-cinema .stage .ph{position:absolute;inset:0;background:var(--surface);z-index:-1}
+#lay-cinema .stage:nth-of-type(even) .ph{background:var(--surface-2)}
+#lay-cinema .stage h1{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:76px;line-height:1;letter-spacing:8px;margin:20px 0 0}
+#lay-cinema .stage .cap{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+#lay-cinema .stage .sub{font-size:16px;line-height:1.9;color:var(--body);max-width:30em;margin-top:24px}
+#lay-cinema .btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);background:var(--accent);border:1px solid var(--accent);border-radius:9999px;padding:14px 32px;margin-top:36px}
+#lay-cinema .idx{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--meta);position:absolute;top:100px;right:40px}
+#lay-cinema .labwrap{padding:120px 40px;max-width:1180px;margin:0 auto}
+#lay-cinema .labrow{display:grid;grid-template-columns:52px 1fr 180px 24px;align-items:center;gap:20px;padding:24px 0;border-bottom:1px solid var(--hairline)}
+#lay-cinema .labrow:first-of-type{border-top:1px solid var(--hairline)}
+#lay-cinema .labrow .t{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:19px;letter-spacing:1px}
+
+/* ============ C. SPLIT ============ */
+#lay-split .grid{display:grid;grid-template-columns:340px 1fr;min-height:100vh}
+#lay-split .side{position:sticky;top:0;height:100vh;border-right:1px solid var(--hairline);padding:40px;display:flex;flex-direction:column;justify-content:space-between}
+#lay-split .side h1{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:30px;line-height:1.25;letter-spacing:3px;margin-top:28px}
+#lay-split .side .bio{font-size:14px;line-height:2;color:var(--body);margin-top:24px}
+#lay-split .side .rule{width:44px;height:1px;background:var(--accent);margin-top:28px}
+#lay-split .side nav{display:flex;flex-direction:column;gap:14px;margin-top:44px}
+#lay-split .side nav a{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--body)}
+#lay-split .side nav a:first-child{color:var(--ink)}
+#lay-split .side .btn{display:inline-block;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);background:var(--accent);border:1px solid var(--accent);border-radius:9999px;padding:13px 26px;margin-bottom:16px}
+#lay-split .side .foot a{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);line-height:2.4}
+#lay-split .feed{padding:40px}
+#lay-split .shead{display:flex;align-items:baseline;justify-content:space-between;padding:0 0 24px;margin-bottom:8px}
+#lay-split .card{border-top:1px solid var(--hairline);padding:32px 0;display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:start}
+#lay-split .card .th{aspect-ratio:4/3;background:var(--surface);border:1px solid var(--hairline);display:flex;align-items:flex-end;padding:12px}
+#lay-split .card .th span{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+#lay-split .card h3{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:24px;letter-spacing:1.5px}
+#lay-split .card .spec{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);margin-top:12px}
+#lay-split .card p{font-size:15px;line-height:1.95;color:var(--body);margin-top:16px}
+#lay-split .lab{margin-top:80px}
+#lay-split .labrow{display:grid;grid-template-columns:52px 1fr 150px 24px;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid var(--hairline)}
+#lay-split .labrow:first-of-type{border-top:1px solid var(--hairline)}
+#lay-split .labrow .t{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:18px;letter-spacing:1px}
+
+@media(max-width:900px){
+  #lay-index .ixrow,#lay-cinema .labrow,#lay-split .labrow{grid-template-columns:44px 1fr;row-gap:6px}
+  #lay-index .ixrow .r,#lay-index .ixrow .y,#lay-index .ixrow .a{text-align:left;grid-column:2}
+  #lay-index .prev{display:none}
+  #lay-cinema .stage h1{font-size:40px;letter-spacing:4px}
+  #lay-split .grid{grid-template-columns:1fr}
+  #lay-split .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--hairline)}
+  #lay-split .card{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ A. INDEX ============ -->
+<main id="lay-index">
+  <div class="nav">
+    <span class="wordmark">Haruna Takeda</span>
+    <ul class="navlinks"><li><a href="#">Index</a></li><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul>
+  </div>
+  <div class="wrap">
+    <div class="hero">
+      <p class="m">Front-end Engineer &mdash; Tokyo, Japan</p>
+      <h1>Building quiet<br>interfaces</h1>
+      <p>速度と可読性を犠牲にせずに、静かで美しい画面をつくることに関心があります。デザインの意図を実装で目減りさせないことを、いちばん大切にしています。</p>
+    </div>
+
+    <div class="shead"><h2>Works</h2><span class="m">06 Projects</span></div>
+    <div class="ix">
+      <a class="ixrow" href="#" data-fig="Fig. 01"><span class="r">001</span><span class="t">Atelier Nagi</span><span class="r">Design &amp; Dev</span><span class="y">2026</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#" data-fig="Fig. 02"><span class="r">002</span><span class="t">Kotoha Inc.</span><span class="r">Development</span><span class="y">2025</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#" data-fig="Fig. 03"><span class="r">003</span><span class="t">Hinata Books</span><span class="r">Design &amp; Dev</span><span class="y">2025</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#" data-fig="Fig. 04"><span class="r">004</span><span class="t">Suzuri Festival</span><span class="r">Development</span><span class="y">2024</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#" data-fig="Fig. 05"><span class="r">005</span><span class="t">Mado Clinic</span><span class="r">Design &amp; Dev</span><span class="y">2023</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#" data-fig="Fig. 06"><span class="r">006</span><span class="t">Torimichi</span><span class="r">Development</span><span class="y">2022</span><span class="a">&rarr;</span></a>
+    </div>
+
+    <div class="shead"><h2>Lab</h2><span class="m">05 Experiments</span></div>
+    <div class="ix">
+      <a class="ixrow" href="#"><span class="r">L01</span><span class="t">Grain Shader Playground</span><span class="r">GLSL</span><span class="y">2026</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#"><span class="r">L02</span><span class="t">Type Scale Generator</span><span class="r">TypeScript</span><span class="y">2026</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#"><span class="r">L03</span><span class="t">Scroll Timeline Notes</span><span class="r">CSS</span><span class="y">2025</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#"><span class="r">L04</span><span class="t">Kerning Inspector</span><span class="r">Canvas</span><span class="y">2025</span><span class="a">&rarr;</span></a>
+      <a class="ixrow" href="#"><span class="r">L05</span><span class="t">Contrast Checker</span><span class="r">React</span><span class="y">2024</span><span class="a">&rarr;</span></a>
+    </div>
+    <div style="height:140px"></div>
+  </div>
+  <div class="prev" id="prev"><span></span></div>
+</main>
+
+<!-- ============ B. CINEMA ============ -->
+<main id="lay-cinema">
+  <div class="nav">
+    <span class="wordmark">Haruna Takeda</span>
+    <ul class="navlinks"><li><a href="#">Works</a></li><li><a href="#">Lab</a></li><li><a href="#">About</a></li></ul>
+  </div>
+
+  <section class="stage"><div class="ph"></div>
+    <span class="idx">01 / 06</span>
+    <p class="cap">2026 &nbsp;/&nbsp; Design &amp; Development</p>
+    <h1>Atelier<br>Nagi</h1>
+    <p class="sub">陶芸作家の作品集サイト。画像の読み込み順を制御し、スクロールに追従する遷移を実装しました。LCP 1.2s。</p>
+    <a class="btn" href="#">View Project</a>
+  </section>
+
+  <section class="stage"><div class="ph"></div>
+    <span class="idx">02 / 06</span>
+    <p class="cap">2025 &nbsp;/&nbsp; Development</p>
+    <h1>Kotoha<br>Inc.</h1>
+    <p class="sub">コーポレートサイトのフルリニューアル。運用担当者が触れる範囲を絞ったCMS設計を担当しました。</p>
+    <a class="btn" href="#">View Project</a>
+  </section>
+
+  <section class="stage"><div class="ph"></div>
+    <span class="idx">03 / 06</span>
+    <p class="cap">2025 &nbsp;/&nbsp; Design &amp; Development</p>
+    <h1>Hinata<br>Books</h1>
+    <p class="sub">独立系書店のECサイト。検索と絞り込みの導線をゼロから設計し、回遊率が1.7倍になりました。</p>
+    <a class="btn" href="#">View Project</a>
+  </section>
+
+  <div class="labwrap">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px"><h2>Lab</h2><span class="m">05 Experiments</span></div>
+    <a class="labrow" href="#"><span class="m">L01</span><span class="t">Grain Shader Playground</span><span class="m" style="text-align:right">GLSL &middot; 2026</span><span class="m" style="text-align:right">&rarr;</span></a>
+    <a class="labrow" href="#"><span class="m">L02</span><span class="t">Type Scale Generator</span><span class="m" style="text-align:right">TypeScript &middot; 2026</span><span class="m" style="text-align:right">&rarr;</span></a>
+    <a class="labrow" href="#"><span class="m">L03</span><span class="t">Scroll Timeline Notes</span><span class="m" style="text-align:right">CSS &middot; 2025</span><span class="m" style="text-align:right">&rarr;</span></a>
+    <a class="labrow" href="#"><span class="m">L04</span><span class="t">Kerning Inspector</span><span class="m" style="text-align:right">Canvas &middot; 2025</span><span class="m" style="text-align:right">&rarr;</span></a>
+  </div>
+</main>
+
+<!-- ============ C. SPLIT ============ -->
+<main id="lay-split">
+  <div class="grid">
+    <aside class="side">
+      <div>
+        <p class="m">Front-end Engineer</p>
+        <h1>Haruna<br>Takeda</h1>
+        <div class="rule"></div>
+        <p class="bio">静かで美しい画面を、速度と可読性を犠牲にせずにつくること。デザインの意図を実装で目減りさせないことを大切にしています。</p>
+        <nav>
+          <a href="#">Works</a>
+          <a href="#">Lab</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <a class="btn" href="#">Download CV</a>
+        <div class="foot">
+          <a href="#">GitHub &nearr;</a>
+          <a href="#">X (Twitter) &nearr;</a>
+          <a href="#">hello@example.com</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="feed">
+      <div class="shead"><h2>Works</h2><span class="m">06 Projects</span></div>
+      <article class="card">
+        <div class="th"><span>Fig. 01</span></div>
+        <div><h3>Atelier Nagi</h3><p class="spec">2026 &nbsp;/&nbsp; Design &amp; Dev &nbsp;/&nbsp; Next.js &middot; GSAP</p><p>陶芸作家の作品集サイト。画像の読み込み順を制御し、スクロールに追従する遷移を実装しました。LCP 1.2s。</p></div>
+      </article>
+      <article class="card">
+        <div class="th"><span>Fig. 02</span></div>
+        <div><h3>Kotoha Inc.</h3><p class="spec">2025 &nbsp;/&nbsp; Dev &nbsp;/&nbsp; Astro &middot; microCMS</p><p>コーポレートサイトのフルリニューアル。運用担当者が触れる範囲を絞ったCMS設計を担当しました。</p></div>
+      </article>
+      <article class="card">
+        <div class="th"><span>Fig. 03</span></div>
+        <div><h3>Hinata Books</h3><p class="spec">2025 &nbsp;/&nbsp; Design &amp; Dev &nbsp;/&nbsp; Nuxt &middot; Shopify</p><p>独立系書店のECサイト。検索と絞り込みの導線をゼロから設計し、回遊率が1.7倍になりました。</p></div>
+      </article>
+      <article class="card">
+        <div class="th"><span>Fig. 04</span></div>
+        <div><h3>Suzuri Festival</h3><p class="spec">2024 &nbsp;/&nbsp; Dev &nbsp;/&nbsp; WebGL &middot; Three.js</p><p>音楽フェスの特設サイト。会場マップをWebGLで実装し、低スペック端末向けの代替表示も用意しました。</p></div>
+      </article>
+
+      <div class="lab">
+        <div class="shead"><h2>Lab</h2><span class="m">05 Experiments</span></div>
+        <a class="labrow" href="#"><span class="m">L01</span><span class="t">Grain Shader Playground</span><span class="m" style="text-align:right">GLSL</span><span class="m" style="text-align:right">&rarr;</span></a>
+        <a class="labrow" href="#"><span class="m">L02</span><span class="t">Type Scale Generator</span><span class="m" style="text-align:right">TypeScript</span><span class="m" style="text-align:right">&rarr;</span></a>
+        <a class="labrow" href="#"><span class="m">L03</span><span class="t">Scroll Timeline Notes</span><span class="m" style="text-align:right">CSS</span><span class="m" style="text-align:right">&rarr;</span></a>
+        <a class="labrow" href="#"><span class="m">L04</span><span class="t">Kerning Inspector</span><span class="m" style="text-align:right">Canvas</span><span class="m" style="text-align:right">&rarr;</span></a>
+        <a class="labrow" href="#"><span class="m">L05</span><span class="t">Contrast Checker</span><span class="m" style="text-align:right">React</span><span class="m" style="text-align:right">&rarr;</span></a>
+      </div>
+      <div style="height:80px"></div>
+    </div>
+  </div>
+</main>
+
+<div class="switch">
+  <em>Layout</em>
+  <button data-l="index" data-on>A. Index</button>
+  <button data-l="cinema">B. Cinema</button>
+  <button data-l="split">C. Split</button>
+</div>
+
+<script>
+const root = document.documentElement;
+document.querySelectorAll('.switch button').forEach(b => {
+  b.onclick = () => {
+    root.dataset.layout = b.dataset.l;
+    document.querySelectorAll('.switch button').forEach(x => x.removeAttribute('data-on'));
+    b.setAttribute('data-on','');
+    window.scrollTo(0,0);
+  };
+});
+const prev = document.getElementById('prev');
+document.querySelectorAll('#lay-index .ixrow[data-fig]').forEach(r => {
+  r.addEventListener('mouseenter', () => {
+    prev.querySelector('span').textContent = r.dataset.fig;
+    prev.style.opacity = '1';
+  });
+  r.addEventListener('mouseleave', () => { prev.style.opacity = '0'; });
+});
+</script>
+</body>
+</html>

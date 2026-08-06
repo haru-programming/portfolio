@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio — Cinema (refined)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=EB+Garamond:wght@400&family=Zen+Old+Mincho:wght@400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F6F2F0; --surface:#EDE7E4; --surface-2:#E5DDD9;
+  --hairline:#E0D8D3; --hairline-strong:#CCC0BA;
+  --ink:#332C2A; --body:#5C534F; --meta:#6E645F; --accent:#E8A697;
+  --gutter:40px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--canvas);color:var(--ink);font-family:'EB Garamond','Zen Old Mincho',serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.m{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;font-size:11px;letter-spacing:2px;color:var(--meta);line-height:1.4}
+.dsp{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase}
+
+/* ---- nav : MENU / wordmark centred / CONTACT ---- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;height:56px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--gutter)}
+.nav .lft{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
+.nav .rgt{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);text-align:right}
+.nav .wm{font-family:'Jost',sans-serif;font-weight:400;font-size:14px;letter-spacing:6px;text-transform:uppercase;text-align:center;white-space:nowrap}
+
+/* ---- full-bleed stage ---- */
+.stage{height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 var(--gutter)}
+.stage .ph{position:absolute;inset:0;background:var(--surface);z-index:-2}
+.stage:nth-of-type(even) .ph{background:var(--surface-2)}
+.stage .phlabel{position:absolute;left:var(--gutter);bottom:24px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+.stage .num{position:absolute;right:var(--gutter);top:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--meta)}
+
+.stage h1{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:64px;line-height:1.1;letter-spacing:4px}
+.stage h2{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:48px;line-height:1.15;letter-spacing:3px}
+.stage .cap{margin-bottom:28px}
+.stage .cap2{margin-top:24px}
+.scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+
+/* ---- buttons : Ferrari sharp 0px ---- */
+.btn{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--ink);border-radius:0;padding:15px 32px;line-height:1;margin-top:40px}
+.btn.fill{background:var(--accent);border-color:var(--accent)}
+
+/* ---- editorial bands on canvas ---- */
+.band{padding:160px var(--gutter);border-top:1px solid var(--hairline)}
+.band.tight{padding:120px var(--gutter)}
+.inner{max-width:1280px;margin:0 auto}
+.centered{text-align:center;max-width:34em;margin:0 auto}
+.centered p{font-size:18px;line-height:2.15;color:var(--body)}
+.rule{width:64px;height:1px;background:var(--accent);margin:48px auto 0}
+
+.bhead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:56px}
+.bhead h3{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:28px;letter-spacing:2px}
+
+/* ---- Ferrari spec cells ---- */
+.specs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--hairline)}
+.cell{padding:40px 0;border-bottom:1px solid var(--hairline);text-align:center}
+.cell .v{font-family:'Jost',sans-serif;font-weight:300;font-size:64px;line-height:1;letter-spacing:-1px}
+.cell .l{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);margin-top:16px}
+
+/* ---- lab rows ---- */
+.row{display:grid;grid-template-columns:56px 1fr 190px 24px;align-items:center;gap:20px;padding:26px 0;border-bottom:1px solid var(--hairline)}
+.row:first-of-type{border-top:1px solid var(--hairline)}
+.row .t{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:20px;letter-spacing:1px}
+.row .r{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+.row .r.right{text-align:right}
+
+footer{padding:64px var(--gutter);border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:flex-end}
+footer a{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);display:block;line-height:2.4}
+.wmfoot{font-family:'Jost',sans-serif;font-weight:400;font-size:14px;letter-spacing:6px;text-transform:uppercase}
+
+@media(max-width:900px){
+  :root{--gutter:20px}
+  .nav{grid-template-columns:1fr auto 1fr}
+  .stage h1{font-size:34px;letter-spacing:2px}
+  .stage h2{font-size:28px;letter-spacing:2px}
+  .band{padding:96px var(--gutter)}
+  .specs{grid-template-columns:1fr 1fr}
+  .cell .v{font-size:44px}
+  .row{grid-template-columns:44px 1fr;row-gap:6px}
+  .row .r.right{text-align:left;grid-column:2}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="lft" href="#">Menu</a>
+  <span class="wm">Haruna Takeda</span>
+  <a class="rgt" href="#">Contact</a>
+</nav>
+
+<section class="stage">
+  <div class="ph"></div>
+  <span class="phlabel">Photograph &mdash; Opening</span>
+  <p class="m cap">Front-end Engineer &mdash; Tokyo, Japan</p>
+  <h1>Haruna<br>Takeda</h1>
+  <span class="scroll">Scroll &darr;</span>
+</section>
+
+<div class="band">
+  <div class="centered">
+    <p>速度と可読性を犠牲にせずに、静かで美しい画面をつくる。デザインの意図を、実装で目減りさせないこと。</p>
+    <div class="rule"></div>
+  </div>
+</div>
+
+<section class="stage">
+  <div class="ph"></div>
+  <span class="phlabel">Photograph &mdash; Atelier Nagi</span>
+  <span class="num">01 / 06</span>
+  <p class="m cap">2026 &nbsp;&mdash;&nbsp; Design &amp; Development</p>
+  <h2>Atelier Nagi</h2>
+  <p class="m cap2">Next.js &middot; GSAP &middot; microCMS</p>
+  <a class="btn" href="#">View Project</a>
+</section>
+
+<section class="stage">
+  <div class="ph"></div>
+  <span class="phlabel">Photograph &mdash; Kotoha Inc.</span>
+  <span class="num">02 / 06</span>
+  <p class="m cap">2025 &nbsp;&mdash;&nbsp; Development</p>
+  <h2>Kotoha Inc.</h2>
+  <p class="m cap2">Astro &middot; microCMS &middot; Vercel</p>
+  <a class="btn" href="#">View Project</a>
+</section>
+
+<section class="stage">
+  <div class="ph"></div>
+  <span class="phlabel">Photograph &mdash; Hinata Books</span>
+  <span class="num">03 / 06</span>
+  <p class="m cap">2025 &nbsp;&mdash;&nbsp; Design &amp; Development</p>
+  <h2>Hinata Books</h2>
+  <p class="m cap2">Nuxt &middot; Shopify &middot; Algolia</p>
+  <a class="btn" href="#">View Project</a>
+</section>
+
+<section class="stage">
+  <div class="ph"></div>
+  <span class="phlabel">Photograph &mdash; Suzuri Festival</span>
+  <span class="num">04 / 06</span>
+  <p class="m cap">2024 &nbsp;&mdash;&nbsp; Development</p>
+  <h2>Suzuri Festival</h2>
+  <p class="m cap2">Three.js &middot; WebGL &middot; TypeScript</p>
+  <a class="btn" href="#">View Project</a>
+</section>
+
+<div class="band tight">
+  <div class="inner">
+    <div class="specs">
+      <div class="cell"><div class="v">4</div><div class="l">Years of Experience</div></div>
+      <div class="cell"><div class="v">32</div><div class="l">Sites Shipped</div></div>
+      <div class="cell"><div class="v">98</div><div class="l">Avg. Lighthouse</div></div>
+      <div class="cell"><div class="v">1.2<span style="font-size:24px">s</span></div><div class="l">Median LCP</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="band tight">
+  <div class="inner">
+    <div class="bhead"><h3>Lab</h3><span class="m">05 Experiments</span></div>
+    <a class="row" href="#"><span class="r">L01</span><span class="t">Grain Shader Playground</span><span class="r right">GLSL &middot; 2026</span><span class="r right">&rarr;</span></a>
+    <a class="row" href="#"><span class="r">L02</span><span class="t">Type Scale Generator</span><span class="r right">TypeScript &middot; 2026</span><span class="r right">&rarr;</span></a>
+    <a class="row" href="#"><span class="r">L03</span><span class="t">Scroll Timeline Notes</span><span class="r right">CSS &middot; 2025</span><span class="r right">&rarr;</span></a>
+    <a class="row" href="#"><span class="r">L04</span><span class="t">Kerning Inspector</span><span class="r right">Canvas &middot; 2025</span><span class="r right">&rarr;</span></a>
+    <a class="row" href="#"><span class="r">L05</span><span class="t">Contrast Checker</span><span class="r right">React &middot; 2024</span><span class="r right">&rarr;</span></a>
+  </div>
+</div>
+
+<section class="stage" style="height:70vh">
+  <div class="ph"></div>
+  <span class="phlabel">Photograph &mdash; Closing</span>
+  <p class="m cap">Open to New Opportunities</p>
+  <h2>Let&rsquo;s Talk</h2>
+  <a class="btn fill" href="#">Download CV</a>
+</section>
+
+<footer>
+  <div>
+    <a href="#">GitHub &nearr;</a>
+    <a href="#">X (Twitter) &nearr;</a>
+    <a href="#">hello@example.com</a>
+  </div>
+  <span class="wmfoot">Haruna Takeda</span>
+</footer>
+
+</body>
+</html>

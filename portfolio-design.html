@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="coral" data-accent="softer" data-cta="fill" data-page="top">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio Design — 3 colorways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=EB+Garamond:ital,wght@0,400;1,400&family=Zen+Old+Mincho:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F5F2ED; --surface:#EBE7DF; --surface-2:#E3DED3;
+  --hairline:#DED8CC; --hairline-strong:#C9C2B2;
+  --ink:#332F29; --body:#5C564C; --meta:#6E685C; --accent:#D98E62;
+}
+html[data-theme="coral"]{
+  --canvas:#F6F2F0; --surface:#ECE6E3; --surface-2:#E4DCD8;
+  --hairline:#E0D8D3; --hairline-strong:#CCC0BA;
+  --ink:#332C2A; --body:#5C534F; --meta:#6E645F; --accent:#D9705F;
+}
+html[data-theme="sand"]{
+  --canvas:#F3F1EB; --surface:#E9E5DC; --surface-2:#E1DBCF;
+  --hairline:#DBD5C8; --hairline-strong:#C6BFAD;
+  --ink:#302E28; --body:#58544A; --meta:#6A6558; --accent:#C0A062;
+}
+html[data-theme="coral"][data-accent="original"]{--accent:#D9705F}
+html[data-theme="coral"][data-accent="soft"]{--accent:#E08D7C}
+html[data-theme="coral"][data-accent="softer"]{--accent:#E8A697}
+html[data-theme="coral"][data-accent="faint"]{--accent:#EFC0B4}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--canvas); color:var(--ink);
+  font-family:'EB Garamond','Zen Old Mincho',serif;
+  -webkit-font-smoothing:antialiased;
+}
+.d{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase}
+.m{font-family:'IBM Plex Mono',monospace;text-transform:uppercase}
+
+/* ---------- switcher ---------- */
+.switch{
+  position:fixed; right:0; bottom:0; z-index:50;
+  display:flex; align-items:stretch;
+  background:var(--canvas); border-top:1px solid var(--hairline); border-left:1px solid var(--hairline);
+}
+.switch span{
+  font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--meta); padding:12px 14px; border-right:1px solid var(--hairline); align-self:center;
+}
+.switch button{
+  font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  background:none; border:0; border-right:1px solid var(--hairline);
+  color:var(--meta); padding:12px 16px; cursor:pointer;
+}
+.switch button:last-child{border-right:0}
+.switch button[data-on]{color:var(--ink)}
+.switch button[data-on]::before{content:'';display:inline-block;width:6px;height:6px;background:var(--accent);margin-right:8px;vertical-align:1px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky; top:0; z-index:40; background:var(--canvas);
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 40px; border-bottom:1px solid var(--hairline);
+}
+.wordmark{font-family:'Jost',sans-serif;font-weight:400;font-size:14px;letter-spacing:6px;text-transform:uppercase}
+.nav ul{display:flex;gap:36px;list-style:none}
+.nav a{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--body);text-decoration:none;padding-bottom:4px;border-bottom:1px solid transparent;cursor:pointer;
+}
+.nav a[data-on]{color:var(--ink);border-bottom-color:var(--accent)}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+[data-page="top"] #about,[data-page="about"] #top{display:none}
+
+/* ---------- hero ---------- */
+.hero{padding:140px 0 120px;border-bottom:1px solid var(--hairline)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+h1{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:64px;line-height:1.1;letter-spacing:4px;margin:32px 0 0}
+.hero p{font-size:17px;line-height:1.9;color:var(--body);max-width:34em;margin-top:40px}
+.rule{width:64px;height:1px;background:var(--accent);margin-top:40px}
+
+/* ---------- sections ---------- */
+section{padding:120px 0;border-bottom:1px solid var(--hairline)}
+.shead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:64px}
+h2{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:32px;letter-spacing:2px}
+.count{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--meta)}
+
+/* ---------- works ---------- */
+.works{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.card{background:none}
+.thumb{aspect-ratio:16/9;background:var(--surface);display:flex;align-items:flex-end;padding:16px;border:1px solid var(--hairline)}
+.thumb span{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+.card h3{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:24px;letter-spacing:1.5px;margin:24px 0 0}
+.card .spec{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);margin-top:12px}
+.card p{font-size:15px;line-height:1.9;color:var(--body);margin-top:16px}
+.more{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);text-decoration:none;margin-top:20px;border-bottom:1px solid var(--hairline-strong);padding-bottom:2px}
+
+/* ---------- lab ---------- */
+.row{display:grid;grid-template-columns:56px 1fr 220px 24px;align-items:center;gap:24px;padding:28px 0;border-bottom:1px solid var(--hairline)}
+.row:first-of-type{border-top:1px solid var(--hairline)}
+.row .no{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;color:var(--meta)}
+.row .title{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;font-size:20px;letter-spacing:1px}
+.row .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);text-align:right}
+.row .arw{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--meta);text-align:right}
+
+/* ---------- about ---------- */
+.abt{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start}
+.portrait{aspect-ratio:3/4;background:var(--surface);border:1px solid var(--hairline);display:flex;align-items:flex-end;padding:16px}
+.portrait span{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+.abt p{font-size:16px;line-height:2.1;color:var(--body);margin-bottom:1.6em}
+.abt p em{font-style:italic;color:var(--ink)}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--hairline)}
+.spec-cell{padding:32px 0;border-bottom:1px solid var(--hairline)}
+.spec-cell .v{font-family:'Jost',sans-serif;font-weight:300;font-size:40px;letter-spacing:1px}
+.spec-cell .l{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);margin-top:10px}
+.skills{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--hairline)}
+.skills:first-of-type{border-top:1px solid var(--hairline)}
+.skills dt{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+.skills dd{font-size:15px;line-height:2;color:var(--body)}
+.btn{
+  display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;background:none;border:1px solid var(--ink);border-radius:9999px;padding:15px 34px;
+}
+html[data-cta="fill"] .btn.fill{background:var(--accent);border-color:var(--accent)}
+
+footer{padding:80px 40px;display:flex;justify-content:space-between;align-items:flex-end}
+footer a{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--meta);text-decoration:none;display:block;line-height:2.4}
+.copy{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--meta)}
+
+@media(max-width:900px){
+  .nav{padding:0 20px}.wrap{padding:0 20px}
+  h1{font-size:38px;letter-spacing:2px}
+  .works,.abt{grid-template-columns:1fr}
+  .specs{grid-template-columns:1fr 1fr}
+  .row{grid-template-columns:40px 1fr;row-gap:8px}
+  .row .tag,.row .arw{text-align:left;grid-column:2}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="wordmark">Haruna Takeda</span>
+  <ul>
+    <li><a data-nav="top" data-on>Works</a></li>
+    <li><a data-nav="top">Lab</a></li>
+    <li><a data-nav="about">About</a></li>
+  </ul>
+</nav>
+
+<main id="top">
+  <div class="wrap">
+
+    <div class="hero">
+      <p class="eyebrow">Front-end Engineer &mdash; Tokyo, Japan</p>
+      <h1>Building<br>quiet<br>interfaces</h1>
+      <p>速度と可読性を犠牲にせずに、静かで美しい画面をつくることに関心があります。デザインの意図を実装で目減りさせないことを、いちばん大切にしています。</p>
+      <div class="rule"></div>
+    </div>
+
+    <section>
+      <div class="shead">
+        <h2>Selected Works</h2>
+        <span class="count">2022 &mdash; 2026 &nbsp;/&nbsp; 06 Projects</span>
+      </div>
+      <div class="works">
+        <article class="card">
+          <div class="thumb"><span>Fig. 01</span></div>
+          <h3>Atelier Nagi</h3>
+          <p class="spec">2026 &nbsp;/&nbsp; Design &amp; Dev &nbsp;/&nbsp; Next.js &middot; GSAP</p>
+          <p>陶芸作家の作品集サイト。画像の読み込み順を制御し、スクロールに追従する遷移を実装しました。LCP 1.2s。</p>
+          <a class="more" href="#">View Project &nbsp;&rarr;</a>
+        </article>
+        <article class="card">
+          <div class="thumb"><span>Fig. 02</span></div>
+          <h3>Kotoha Inc.</h3>
+          <p class="spec">2025 &nbsp;/&nbsp; Dev &nbsp;/&nbsp; Astro &middot; microCMS</p>
+          <p>コーポレートサイトのフルリニューアル。運用担当者が触れる範囲を絞ったCMS設計を担当。</p>
+          <a class="more" href="#">View Project &nbsp;&rarr;</a>
+        </article>
+        <article class="card">
+          <div class="thumb"><span>Fig. 03</span></div>
+          <h3>Hinata Books</h3>
+          <p class="spec">2025 &nbsp;/&nbsp; Design &amp; Dev &nbsp;/&nbsp; Nuxt &middot; Shopify</p>
+          <p>独立系書店のECサイト。検索と絞り込みの導線をゼロから設計し、回遊率が1.7倍に。</p>
+          <a class="more" href="#">View Project &nbsp;&rarr;</a>
+        </article>
+        <article class="card">
+          <div class="thumb"><span>Fig. 04</span></div>
+          <h3>Suzuri Festival</h3>
+          <p class="spec">2024 &nbsp;/&nbsp; Dev &nbsp;/&nbsp; WebGL &middot; Three.js</p>
+          <p>音楽フェスの特設サイト。会場マップをWebGLで実装し、低スペック端末向けの代替表示も用意。</p>
+          <a class="more" href="#">View Project &nbsp;&rarr;</a>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="shead">
+        <h2>Lab</h2>
+        <span class="count">Experiments &nbsp;/&nbsp; 08 Entries</span>
+      </div>
+      <div class="row"><span class="no">001</span><span class="title">Grain Shader Playground</span><span class="tag">GLSL &middot; 2026</span><span class="arw">&rarr;</span></div>
+      <div class="row"><span class="no">002</span><span class="title">Type Scale Generator</span><span class="tag">TypeScript &middot; 2026</span><span class="arw">&rarr;</span></div>
+      <div class="row"><span class="no">003</span><span class="title">Scroll Timeline Notes</span><span class="tag">CSS &middot; 2025</span><span class="arw">&rarr;</span></div>
+      <div class="row"><span class="no">004</span><span class="title">Kerning Inspector</span><span class="tag">Canvas &middot; 2025</span><span class="arw">&rarr;</span></div>
+      <div class="row"><span class="no">005</span><span class="title">Palette Contrast Checker</span><span class="tag">React &middot; 2024</span><span class="arw">&rarr;</span></div>
+    </section>
+
+  </div>
+</main>
+
+<main id="about">
+  <div class="wrap">
+
+    <div class="hero">
+      <p class="eyebrow">About</p>
+      <h1>Haruna<br>Takeda</h1>
+      <div class="rule"></div>
+    </div>
+
+    <section>
+      <div class="abt">
+        <div class="portrait"><span>Portrait</span></div>
+        <div>
+          <p>1996年生まれ。受託制作会社でフロントエンドエンジニアとして4年間、コーポレートサイトからキャンペーンサイトまで<em>30件以上</em>の実装を担当してきました。</p>
+          <p>デザイナーが引いた1pxのラインや、指定されたイージングの意味を、実装の都合で丸めないこと。それが自分の役割だと思っています。デザインカンプに書かれていない状態——ホバー、フォーカス、読み込み中、エラー——を設計段階から一緒に詰めるのが得意です。</p>
+          <p>現在は、プロダクトの設計そのものに関われる環境を探しています。</p>
+          <div style="margin-top:40px;display:flex;gap:16px;flex-wrap:wrap">
+            <a class="btn fill" href="#">Download CV</a>
+            <a class="btn" href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shead"><h2>By the Numbers</h2></div>
+      <div class="specs">
+        <div class="spec-cell"><div class="v">4</div><div class="l">Years of Experience</div></div>
+        <div class="spec-cell"><div class="v">32</div><div class="l">Sites Shipped</div></div>
+        <div class="spec-cell"><div class="v">98</div><div class="l">Avg. Lighthouse</div></div>
+        <div class="spec-cell"><div class="v">8</div><div class="l">Lab Experiments</div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shead"><h2>Capabilities</h2></div>
+      <dl>
+        <div class="skills"><dt>Languages</dt><dd>TypeScript / JavaScript / HTML / CSS / PHP</dd></div>
+        <div class="skills"><dt>Frameworks</dt><dd>Next.js / Nuxt / Astro / Svelte</dd></div>
+        <div class="skills"><dt>Styling</dt><dd>Tailwind CSS / CSS Modules / Sass / GSAP / Three.js</dd></div>
+        <div class="skills"><dt>Backend &amp; CMS</dt><dd>Node.js / microCMS / Shopify / Headless WordPress</dd></div>
+        <div class="skills"><dt>Workflow</dt><dd>Figma / Git / GitHub Actions / Vercel / Storybook</dd></div>
+        <div class="skills"><dt>Accessibility</dt><dd>WCAG 2.2 AA 準拠の実装 / スクリーンリーダー検証</dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <div class="shead"><h2>Career</h2></div>
+      <div class="row"><span class="no">2022</span><span class="title">Studio Kanade &mdash; Front-end Engineer</span><span class="tag">Present</span><span class="arw"></span></div>
+      <div class="row"><span class="no">2020</span><span class="title">Aoi Web Works &mdash; Web Developer</span><span class="tag">2022</span><span class="arw"></span></div>
+      <div class="row"><span class="no">2019</span><span class="title">Musashino Art University &mdash; B.A. Design</span><span class="tag">Graduated</span><span class="arw"></span></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div>
+    <a href="#">GitHub &nearr;</a>
+    <a href="#">X (Twitter) &nearr;</a>
+    <a href="#">hello@example.com</a>
+  </div>
+  <span class="copy">&copy; 2026 Haruna Takeda</span>
+</footer>
+
+<div class="switch">
+  <span>Accent</span>
+  <button data-a="original">Original</button>
+  <button data-a="soft">Soft</button>
+  <button data-a="softer" data-on>Softer</button>
+  <button data-a="faint">Faint</button>
+  <span>CTA</span>
+  <button data-c="fill" data-on>Fill</button>
+  <button data-c="outline">Outline</button>
+</div>
+
+<script>
+const root = document.documentElement;
+document.querySelectorAll('.switch button[data-a]').forEach(b => {
+  b.onclick = () => {
+    root.dataset.accent = b.dataset.a;
+    document.querySelectorAll('.switch button[data-a]').forEach(x => x.removeAttribute('data-on'));
+    b.setAttribute('data-on','');
+  };
+});
+document.querySelectorAll('.switch button[data-c]').forEach(b => {
+  b.onclick = () => {
+    root.dataset.cta = b.dataset.c;
+    document.querySelectorAll('.switch button[data-c]').forEach(x => x.removeAttribute('data-on'));
+    b.setAttribute('data-on','');
+  };
+});
+document.querySelectorAll('.nav a').forEach(a => {
+  a.onclick = e => {
+    e.preventDefault();
+    root.dataset.page = a.dataset.nav;
+    document.querySelectorAll('.nav a').forEach(x => x.removeAttribute('data-on'));
+    a.setAttribute('data-on','');
+    window.scrollTo(0,0);
+  };
+});
+</script>
+</body>
+</html>

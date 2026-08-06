@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(printf '22\\\\n')",
+      "Bash(mkdir -p public)",
+      "Bash(cat)",
+      "Bash(git reset *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m ' *)",
+      "Bash(git --no-pager log --oneline)"
+    ]
+  }
+}
