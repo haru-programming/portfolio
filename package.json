@@ -1,0 +1,35 @@
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "prebuild": "npm run fonts",
+    "postbuild": "tsx scripts/verify-subsets.ts",
+    "start": "python3 -m http.server 4399 --directory out",
+    "fonts": "tsx scripts/subset-fonts.ts",
+    "fonts:fetch": "tsx scripts/fetch-fonts.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/fontkit": "^2.0.9",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "fontkit": "^2.0.4",
+    "glob": "^13.0.6",
+    "subset-font": "^2.5.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

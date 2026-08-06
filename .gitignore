@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# サブセットはビルド成果物。元TTF（assets/fonts-src/）はコミットする。
+styles/generated/
+
+.env*
+!.env.example
+.DS_Store
+.vercel
+.wrangler/

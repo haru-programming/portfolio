@@ -1,0 +1,142 @@
+/**
+ * DESIGN.md の Hierarchy 表と1対1で対応するタイポグラフィのクラス。
+ * 各コンポーネントの CSS Module から composes で取り込む。
+ *
+ * :root のカスタムプロパティは styles/tokens.css 側（グローバル）にある。
+ * composes の参照先は CSS Module でなければならないので、ファイルを分けている。
+ */
+
+/* ============================================================
+   タイポグラフィ
+   DESIGN.md の Hierarchy 表と1対1で対応する。
+   強弱はサイズ・字間・大文字小文字・書体の役割分担だけで作る。
+   ============================================================ */
+
+.wordmark {
+  font-family: var(--font-display-stack);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.displayXl {
+  font-family: var(--font-display-stack);
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.displayLg {
+  font-family: var(--font-display-stack);
+  font-size: 44px;
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.displayMd {
+  font-family: var(--font-display-stack);
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.displaySm {
+  font-family: var(--font-display-stack);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.numberDisplay {
+  font-family: var(--font-display-stack);
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.bodyLg {
+  font-family: var(--font-body-stack);
+  font-size: 17px;
+  font-weight: 400;
+  /* 明朝を詰めた行送りで組むと読めなくなる。2.0 以上は必須 */
+  line-height: 2.15;
+  letter-spacing: 0;
+}
+
+.bodyMd {
+  font-family: var(--font-body-stack);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: 0;
+}
+
+/* mono は常に大文字。小文字にするとラベルではなくコードに見える。
+   例外はフレームバー内の URL だけ */
+.labelMono {
+  font-family: var(--font-mono-stack);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.labelMonoSm {
+  font-family: var(--font-mono-stack);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.navMono {
+  font-family: var(--font-mono-stack);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.buttonMono {
+  font-family: var(--font-mono-stack);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.linkMono {
+  font-family: var(--font-mono-stack);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .displayXl {
+    font-size: 34px;
+    letter-spacing: 2px;
+  }
+  .displayLg {
+    font-size: 26px;
+    letter-spacing: 2px;
+  }
+  .numberDisplay {
+    font-size: 44px;
+  }
+}

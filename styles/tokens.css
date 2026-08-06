@@ -1,0 +1,73 @@
+/**
+ * DESIGN.md のトークンをそのまま CSS 変数に落としたもの。
+ * DESIGN.md が唯一の正なので、値を変えるときは必ずあちらを先に直す。
+ *
+ * この体系に存在しないもの（増やさないこと）:
+ *   影 / 角丸 / font-weight 401以上 / 2つめのアクセント色 /
+ *   WebGL ステージ以外のグラデーション
+ */
+
+:root {
+  /* ---- canvas & structure ---- */
+  --canvas: #fdfbf7;
+  --hairline: #efe4da;
+  --hairline-strong: #dfd0c2;
+  --frame-fill: #ffffff;
+  --placeholder: #f2ece7;
+
+  /* ---- text ---- */
+  --ink: #3a322d;
+  --body: #635850;
+  --meta: #756a61;
+
+  /* ---- accent（1ページに1箇所、プライマリCTAのみ） ---- */
+  --accent: #e8a697;
+  --on-accent: #3a322d;
+
+  /* ---- gradient palette — WebGL シェーダー内のみ ---- */
+  --grad-white: #ffffff;
+  --grad-lemon: #faec8a;
+  --grad-aqua: #a8e5dc;
+  --grad-pink: #fcafc0;
+  --grad-peach: #ffc9a8;
+
+  /* ---- wash palette — 100vh のベタ塗りのみ ---- */
+  /* grad-* と混同しないこと。同じ色相でも用途が別 */
+  --wash-aqua: #e1f6f3;
+  --wash-peach: #ffece1;
+  --wash-pink: #fee3e9;
+  --wash-lemon: #fdf8d6;
+
+  /* ---- families（役割を跨がせない） ---- */
+  /* ラテンは Garamond、和文は Zen Old Mincho に自動で振り分けられる。
+     Garamond に和文グリフが無いことに依存しているので順序を変えないこと。 */
+  --font-body-stack: var(--font-body-latin), var(--font-body-jp), serif;
+  --font-display-stack: var(--font-display), sans-serif;
+  --font-mono-stack: var(--font-mono), ui-monospace, monospace;
+
+  /* ---- spacing（base 4px） ---- */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-xxl: 64px;
+  --space-band: 140px;
+  --space-band-tall: 160px;
+
+  /* ---- layout ---- */
+  --gutter: 40px;
+  --content-max: 1280px;
+  --content-max-narrow: 1180px;
+
+  /* ---- shape ---- */
+  --radius: 0px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --gutter: 20px;
+    --space-band: 88px;
+  }
+}
