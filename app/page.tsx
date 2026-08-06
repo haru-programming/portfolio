@@ -16,6 +16,8 @@ export default async function Home() {
     <>
       <Nav />
 
+      {/* Hero はスタックの外。ここから Atelier Nagi までは普通のスクロールで、
+          重なりは Atelier Nagi が画面いっぱいに固定されてから始まる */}
       <section className={styles.stage}>
         <GradientCanvas />
         <p className={`${styles.eyebrow} ${styles.onGradient}`}>
@@ -30,9 +32,10 @@ export default async function Home() {
         <span className={styles.scroll}>Scroll ↓</span>
       </section>
 
-      {/* data-snap はこのページでだけスクロールスナップを有効にするための目印。
-          html に直接書くと、クライアント遷移で About に移ったあとも効いてしまう */}
-      <div id="works" data-snap>
+      {/* 重なりの本体。ここに並ぶステージはすべて sticky で top:0 に貼りつく。
+          前のステージが固定されたまま、次のステージが下から重なって入ってくる。
+          DOM の後ろにあるものが上に描かれるので z-index の指定は要らない。 */}
+      <div id="works" className={styles.stack}>
         {works.map((work) => (
           <section
             key={work.order}
@@ -79,29 +82,28 @@ export default async function Home() {
                 性質が崩れる。説明文は将来の案件詳細ページで使う。 */}
           </section>
         ))}
-      </div>
 
-      <section
-        className={`${styles.stage} ${styles.closing}`}
-      >
-        <GradientCanvas />
-        <p className={`${styles.eyebrow} ${styles.onGradient}`}>
-          Open to New Opportunities
-        </p>
-        <h2 className={styles.heroTitle} lang="en">
-          Let&rsquo;s Talk
-        </h2>
-        {/* このページで唯一のアクセント色 */}
-        <Link
-          className={styles.buttonPrimary}
-          href="/contact"
-        >
-          Contact
-        </Link>
-        <Link className={styles.textLink} href="/about">
-          Read About Me <span className={styles.arrow}>→</span>
-        </Link>
-      </section>
+        {/* Let's Talk もスタックに入れる。
+            sticky は包含ブロックの底までしか貼りつけないので、スタックの最後の要素は
+            固定される時間を持てない。これを外に出すと最後の案件（Suzuri Festival）が
+            到着した瞬間に流れ始めてしまう。 */}
+        <section className={`${styles.stage} ${styles.closing}`}>
+          <GradientCanvas />
+          <p className={`${styles.eyebrow} ${styles.onGradient}`}>
+            Open to New Opportunities
+          </p>
+          <h2 className={styles.heroTitle} lang="en">
+            Let&rsquo;s Talk
+          </h2>
+          {/* このページで唯一のアクセント色 */}
+          <Link className={styles.buttonPrimary} href="/contact">
+            Contact
+          </Link>
+          <Link className={styles.textLink} href="/about">
+            Read About Me <span className={styles.arrow}>→</span>
+          </Link>
+        </section>
+      </div>
 
       <Footer />
     </>

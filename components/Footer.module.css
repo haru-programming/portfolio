@@ -1,12 +1,4 @@
 .footer {
-  /**
-   * スナップが効くページでフッターに到達できるようにする。
-   * mandatory はスナップ点のどれかに必ず吸着するので、
-   * 最後のスナップ点より下にある要素はスナップ点を持たないと辿り着けなくなる。
-   * end 指定でフッターの下端をビューポート下端に合わせる点を作る。
-   * スナップしないページでは無視されるだけ。
-   */
-  scroll-snap-align: end;
   padding: var(--space-xxl) var(--gutter);
   border-top: 1px solid var(--hairline);
   display: flex;
