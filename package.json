@@ -13,7 +13,7 @@
     "fonts:fetch": "tsx scripts/fetch-fonts.ts",
     "typecheck": "tsc --noEmit",
     "lint": "next lint",
-    "verify:motion": "tsx scripts/verify-motion.ts"
+    "verify:snap": "tsx scripts/verify-snap.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

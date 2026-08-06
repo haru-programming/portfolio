@@ -3,7 +3,6 @@ import GradientCanvas from '@/components/GradientCanvas'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { getWorks } from '@/lib/content'
-import motion from '@/styles/motion.module.css'
 import styles from './page.module.css'
 
 /**
@@ -31,11 +30,13 @@ export default async function Home() {
         <span className={styles.scroll}>Scroll ↓</span>
       </section>
 
-      <div id="works">
+      {/* data-snap はこのページでだけスクロールスナップを有効にするための目印。
+          html に直接書くと、クライアント遷移で About に移ったあとも効いてしまう */}
+      <div id="works" data-snap>
         {works.map((work) => (
           <section
             key={work.order}
-            className={`${styles.stage} ${styles.work} ${motion.stageTimeline}`}
+            className={`${styles.stage} ${styles.work}`}
             data-wash={work.wash}
           >
             <span className={styles.counter}>
@@ -43,16 +44,16 @@ export default async function Home() {
               {String(works.length).padStart(2, '0')}
             </span>
             <p
-              className={`${styles.eyebrow} ${styles.onGradient} ${motion.s1}`}
+              className={`${styles.eyebrow} ${styles.onGradient}`}
             >
               {work.year} — {work.role}
             </p>
-            <h2 className={`${styles.workTitle} ${motion.s2}`} lang="en">
+            <h2 className={styles.workTitle} lang="en">
               {work.title}
             </h2>
 
             {/* 額装。他社サイトの配色がパレットを飲み込まないよう全画面ブリードさせない */}
-            <div className={`${styles.frame} ${motion.s3}`}>
+            <div className={styles.frame}>
               <div className={styles.frameBar}>{work.domain}</div>
               <div className={styles.shot}>
                 <span className={styles.shotLabel}>Screenshot — 1440 × 900</span>
@@ -60,12 +61,12 @@ export default async function Home() {
             </div>
 
             <p
-              className={`${styles.eyebrow} ${styles.onGradient} ${motion.s4}`}
+              className={`${styles.eyebrow} ${styles.onGradient}`}
             >
               {work.stack.join(' · ')}
             </p>
             <a
-              className={`${styles.textLink} ${motion.s5}`}
+              className={styles.textLink}
               href={work.url}
               target="_blank"
               rel="noreferrer noopener"
@@ -81,23 +82,23 @@ export default async function Home() {
       </div>
 
       <section
-        className={`${styles.stage} ${styles.closing} ${motion.stageTimeline}`}
+        className={`${styles.stage} ${styles.closing}`}
       >
         <GradientCanvas />
-        <p className={`${styles.eyebrow} ${styles.onGradient} ${motion.s1}`}>
+        <p className={`${styles.eyebrow} ${styles.onGradient}`}>
           Open to New Opportunities
         </p>
-        <h2 className={`${styles.heroTitle} ${motion.s2}`} lang="en">
+        <h2 className={styles.heroTitle} lang="en">
           Let&rsquo;s Talk
         </h2>
         {/* このページで唯一のアクセント色 */}
         <Link
-          className={`${styles.buttonPrimary} ${motion.s3}`}
+          className={styles.buttonPrimary}
           href="/contact"
         >
           Contact
         </Link>
-        <Link className={`${styles.textLink} ${motion.s4}`} href="/about">
+        <Link className={styles.textLink} href="/about">
           Read About Me <span className={styles.arrow}>→</span>
         </Link>
       </section>

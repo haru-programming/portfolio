@@ -1,6 +1,31 @@
+/**
+ * スクロールスナップ。
+ * 1案件 = 1画面という DESIGN.md の構成をそのまま操作にする。
+ * スクロールすると案件が画面いっぱいで止まり、次のスクロールで次の案件へ移る。
+ *
+ * JS は使わない。ブラウザのスクロール処理そのものに任せたほうが、
+ * 慣性・トラックパッド・キーボード・スクリーンリーダーのどれとも喧嘩しない。
+ *
+ * :has() でこのページの要素があるときだけ有効にしている。
+ * html に直接書くと、クライアント遷移で About に移ったあとも
+ * CSS が残ってスナップが効いたままになるため。
+ * About のバンドは 100vh ではないので、そこで効くと崩れる。
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :global(html):has([data-snap]) {
+    scroll-snap-type: y mandatory;
+    /* 固定ナビ用の 56px を打ち消す。ステージは全面なのでオフセットが要らない */
+    scroll-padding-top: 0;
+  }
+}
+
 /* 各ステージは 100vh 固定。短い縦幅では frame の高さクランプがレイアウトを守るので、
    内部スクロールは絶対に発生させない（DESIGN.md） */
 .stage {
+  scroll-snap-align: start;
+  /* 既定だと勢いのあるスクロールで数画面ぶん飛ばせてしまう。
+     always にして「1スクロールで1案件」を保証する */
+  scroll-snap-stop: always;
   height: 100vh;
   position: relative;
   display: flex;
