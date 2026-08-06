@@ -28,6 +28,14 @@ const workSchema = z.object({
   shot: z.string().min(1),
 })
 
+const labSchema = z.object({
+  order: z.number().int().positive(),
+  title: z.string().min(1),
+  year: z.number().int(),
+  stack: z.array(z.string().min(1)).min(1),
+  url: z.string().url(),
+})
+
 const specSchema = z.object({
   value: z.string().min(1),
   unit: z.string().optional(),
@@ -57,6 +65,7 @@ const aboutSchema = z.object({
 })
 
 export type Work = z.infer<typeof workSchema> & { body: string[] }
+export type Lab = z.infer<typeof labSchema>
 export type About = z.infer<typeof aboutSchema> & { body: string[] }
 export type Wash = z.infer<typeof washSchema>
 
@@ -107,4 +116,20 @@ export const getWorks = async (): Promise<Work[]> => {
   )
 
   return works.sort((a, b) => a.order - b.order)
+}
+
+/** Lab は frontmatter だけ。本文は持たない */
+export const getLab = async (): Promise<Lab[]> => {
+  const dir = join(CONTENT_DIR, 'lab')
+  const files = (await readdir(dir)).filter((f) => f.endsWith('.mdx'))
+
+  const entries = await Promise.all(
+    files.map(async (name) => {
+      const file = join(dir, name)
+      const { data } = matter(await readFile(file, 'utf8'))
+      return parseOrThrow(labSchema, data, file)
+    }),
+  )
+
+  return entries.sort((a, b) => a.order - b.order)
 }

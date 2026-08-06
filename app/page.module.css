@@ -147,6 +147,119 @@
   margin-top: 22px;
 }
 
+/* ============================================================
+   Lab
+   ステージではなく帯（band）。スタックの中に置いてあるが sticky ではないので、
+   固定されている Suzuri Festival の上に重なって流れていく。
+   背景は canvas を敷く。透過だと下のステージが透けてしまう。
+   ============================================================ */
+.lab {
+  /**
+   * z-index が要る。
+   * sticky なステージは「配置済み要素」なので、DOM 順が後でも
+   * 非配置のブロック要素より上に描かれる（描画順は DOM 順ではなく層で決まる）。
+   * 指定しないと Lab は固定中のステージの裏に回り、まるごと見えなくなる。
+   * ステージ側は z-index auto なので 1 で足りる。
+   */
+  position: relative;
+  z-index: 1;
+  background: var(--canvas);
+  padding: 120px var(--gutter);
+  border-top: 1px solid var(--hairline);
+}
+
+.labInner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.bandHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 56px;
+}
+
+.sectionTitle {
+  composes: displayMd from '../styles/type.module.css';
+}
+
+.meta {
+  composes: labelMono from '../styles/type.module.css';
+  color: var(--meta);
+}
+
+/* list-row: index / title / stack / arrow のグリッド。塗りなし、ヘアライン区切り */
+.row {
+  display: grid;
+  grid-template-columns: 56px 1fr 190px 24px;
+  align-items: center;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--hairline);
+  transition: border-bottom-color 200ms ease;
+}
+
+.row:hover {
+  border-bottom-color: var(--hairline-strong);
+}
+
+.lab li:first-child .row {
+  border-top: 1px solid var(--hairline);
+}
+
+.rowIndex {
+  composes: labelMono from '../styles/type.module.css';
+  color: var(--meta);
+}
+
+/* DESIGN.md の list-row は display-sm（24px / 1.5px）。
+   モックアップは 20px / 1px だったが、DESIGN.md を正とする */
+.rowTitle {
+  composes: displaySm from '../styles/type.module.css';
+  color: var(--ink);
+}
+
+.rowMeta {
+  composes: labelMono from '../styles/type.module.css';
+  color: var(--meta);
+  text-align: right;
+}
+
+.rowArrow {
+  composes: labelMono from '../styles/type.module.css';
+  color: var(--meta);
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .lab {
+    padding: 88px var(--gutter);
+  }
+  /* index / タイトル の 2段組にたたむ。
+     メタと矢印は同じ行に並べる（矢印だけ単独行になると間延びする） */
+  .row {
+    grid-template-columns: 44px 1fr auto;
+    row-gap: 6px;
+    gap: 12px;
+  }
+  .rowIndex {
+    align-self: start;
+    padding-top: 6px;
+  }
+  .rowTitle {
+    grid-column: 2 / -1;
+  }
+  .rowMeta {
+    grid-column: 2;
+    text-align: left;
+  }
+  .rowArrow {
+    grid-column: 3;
+    text-align: right;
+  }
+}
+
 @media (max-width: 900px) {
   .frame {
     margin: 24px 0 16px;

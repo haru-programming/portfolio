@@ -2,7 +2,7 @@ import Link from 'next/link'
 import GradientCanvas from '@/components/GradientCanvas'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import { getWorks } from '@/lib/content'
+import { getLab, getWorks } from '@/lib/content'
 import styles from './page.module.css'
 
 /**
@@ -10,7 +10,7 @@ import styles from './page.module.css'
  * unicode-range に一致する文字が存在せず、ブラウザが取得しない。
  */
 export default async function Home() {
-  const works = await getWorks()
+  const [works, lab] = await Promise.all([getWorks(), getLab()])
 
   return (
     <>
@@ -83,27 +83,66 @@ export default async function Home() {
           </section>
         ))}
 
-        {/* Let's Talk もスタックに入れる。
-            sticky は包含ブロックの底までしか貼りつけないので、スタックの最後の要素は
-            固定される時間を持てない。これを外に出すと最後の案件（Suzuri Festival）が
-            到着した瞬間に流れ始めてしまう。 */}
-        <section className={`${styles.stage} ${styles.closing}`}>
-          <GradientCanvas />
-          <p className={`${styles.eyebrow} ${styles.onGradient}`}>
-            Open to New Opportunities
-          </p>
-          <h2 className={styles.heroTitle} lang="en">
-            Let&rsquo;s Talk
-          </h2>
-          {/* このページで唯一のアクセント色 */}
-          <Link className={styles.buttonPrimary} href="/contact">
-            Contact
-          </Link>
-          <Link className={styles.textLink} href="/about">
-            Read About Me <span className={styles.arrow}>→</span>
-          </Link>
+        {/* Lab はスタックの中の最後に置くが sticky にはしない（.stage ではない）。
+            これで最後の案件（Suzuri Festival）が固定されたまま、Lab が上に重なって
+            流れていく。sticky は包含ブロックの底までしか貼りつけないので、
+            スタックの最後の要素は固定される時間を持てない。Lab がその役をかねる。 */}
+        <section className={styles.lab}>
+          <div className={styles.labInner}>
+            <div className={styles.bandHead}>
+              <h2 className={styles.sectionTitle} lang="en">
+                Lab
+              </h2>
+              <span className={styles.meta}>
+                {String(lab.length).padStart(2, '0')} Experiments
+              </span>
+            </div>
+
+            <ul>
+              {lab.map((entry) => (
+                <li key={entry.order}>
+                  <a
+                    className={styles.row}
+                    href={entry.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    <span className={styles.rowIndex}>
+                      L{String(entry.order).padStart(2, '0')}
+                    </span>
+                    <span className={styles.rowTitle} lang="en">
+                      {entry.title}
+                    </span>
+                    <span className={styles.rowMeta}>
+                      {entry.stack.join(' · ')} · {entry.year}
+                    </span>
+                    <span className={`${styles.rowArrow} ${styles.arrow}`}>
+                      →
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       </div>
+
+      <section className={`${styles.stage} ${styles.closing}`}>
+        <GradientCanvas />
+        <p className={`${styles.eyebrow} ${styles.onGradient}`}>
+          Open to New Opportunities
+        </p>
+        <h2 className={styles.heroTitle} lang="en">
+          Let&rsquo;s Talk
+        </h2>
+        {/* このページで唯一のアクセント色 */}
+        <Link className={styles.buttonPrimary} href="/contact">
+          Contact
+        </Link>
+        <Link className={styles.textLink} href="/about">
+          Read About Me <span className={styles.arrow}>→</span>
+        </Link>
+      </section>
 
       <Footer />
     </>
