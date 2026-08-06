@@ -12,3 +12,6 @@ styles/generated/
 .DS_Store
 .vercel
 .wrangler/
+
+# ローカル専用の権限設定。共有しない
+.claude/settings.local.json
