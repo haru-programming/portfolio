@@ -221,23 +221,18 @@
 
 /* ---- CTA ---- */
 .buttonPrimary {
-  composes: buttonMono from '../../styles/type.module.css';
-  display: inline-block;
-  background: var(--accent);
-  color: var(--on-accent);
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 15px 32px;
+  composes: buttonPrimary from '../../styles/components.module.css';
   margin-top: var(--space-xl);
 }
 
 .textLink {
-  composes: linkMono from '../../styles/type.module.css';
-  display: inline-block;
-  color: var(--ink);
-  border-bottom: 1px solid var(--hairline-strong);
-  padding-bottom: 3px;
+  composes: textLink from '../../styles/components.module.css';
   margin-top: 22px;
+}
+
+/* ホバーで 3px 動く矢印。実体の定義は components.module.css 側 */
+.arrow {
+  composes: arrow from '../../styles/components.module.css';
 }
 
 @media (max-width: 900px) {

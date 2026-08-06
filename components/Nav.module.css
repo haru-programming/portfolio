@@ -16,6 +16,13 @@
   /* タッチターゲット 44px を満たすための余白 */
   padding: 15px 0;
   justify-self: start;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 200ms ease;
+}
+
+/* すでに ink なので色は上げられない。ヘアラインを1本出して応える */
+.item:hover {
+  border-bottom-color: var(--ink);
 }
 
 .right {

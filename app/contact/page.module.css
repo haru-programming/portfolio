@@ -30,13 +30,7 @@
 
 /* このページで唯一のアクセント色 */
 .buttonPrimary {
-  composes: buttonMono from '../../styles/type.module.css';
-  display: inline-block;
-  background: var(--accent);
-  color: var(--on-accent);
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 15px 32px;
+  composes: buttonPrimary from '../../styles/components.module.css';
   margin-top: var(--space-xl);
   /* メールアドレスなので大文字化しない */
   text-transform: none;

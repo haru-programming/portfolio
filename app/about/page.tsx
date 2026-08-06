@@ -5,6 +5,7 @@ import GradientCanvas from '@/components/GradientCanvas'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { getAbout } from '@/lib/content'
+import motion from '@/styles/motion.module.css'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -75,7 +76,7 @@ export default async function About() {
         <div className={styles.inner}>
           <dl className={styles.specs}>
             {about.specs.map((spec) => (
-              <div key={spec.label} className={styles.cell}>
+              <div key={spec.label} className={`${styles.cell} ${motion.rise}`}>
                 <dd className={styles.specValue}>
                   {spec.value}
                   {spec.unit ? (
@@ -100,7 +101,7 @@ export default async function About() {
           </div>
 
           {about.career.map((job) => (
-            <div key={job.company} className={styles.job}>
+            <div key={job.company} className={`${styles.job} ${motion.rise}`}>
               <div className={styles.period}>{job.period}</div>
               <div>
                 <h3 className={styles.company} lang="en">
@@ -130,7 +131,10 @@ export default async function About() {
           </div>
           <dl>
             {about.capabilities.map((capability) => (
-              <div key={capability.term} className={styles.capability}>
+              <div
+                key={capability.term}
+                className={`${styles.capability} ${motion.rise}`}
+              >
                 <dt className={styles.term}>{capability.term}</dt>
                 <dd className={styles.detail}>{capability.detail}</dd>
               </div>
@@ -149,7 +153,7 @@ export default async function About() {
           Contact
         </Link>
         <Link className={styles.textLink} href="/">
-          Back to Works →
+          Back to Works <span className={styles.arrow}>→</span>
         </Link>
       </section>
 

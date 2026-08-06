@@ -9,7 +9,7 @@
 
 .link {
   composes: labelMono from '../styles/type.module.css';
-  color: var(--meta);
+  composes: metaLink from '../styles/components.module.css';
   display: block;
   line-height: 2.4;
 }

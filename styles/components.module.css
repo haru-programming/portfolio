@@ -1,0 +1,68 @@
+/**
+ * 複数ページで共有するコンポーネント。
+ * ホバーとアクティブの扱いをここ1箇所に閉じ込める。
+ *
+ * DESIGN.md の制約上、ホバーで使えない手が多い。
+ *   影を足せない / 角を丸められない / 太くできない /
+ *   2つめのアクセント色を持ち込めない
+ * 残るのはヘアラインの濃度と、ごく小さな位置の移動だけなので、それでやる。
+ */
+
+/* ---- text-link ----
+   箱ボタンを2つ並べない代わりに使う。下線は 1px のヘアライン */
+.textLink {
+  composes: linkMono from './type.module.css';
+  display: inline-block;
+  color: var(--ink);
+  border-bottom: 1px solid var(--hairline-strong);
+  padding-bottom: 3px;
+  transition: border-bottom-color 200ms ease;
+}
+
+.textLink:hover {
+  border-bottom-color: var(--ink);
+}
+
+/* 末尾の矢印だけ 3px 動かす。文字組みは動かさない */
+.textLink > .arrow {
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+.textLink:hover > .arrow {
+  transform: translateX(3px);
+}
+
+/* ---- button-primary ----
+   1ページに1箇所だけ。これがアクセント色の予算のすべて */
+.buttonPrimary {
+  composes: buttonMono from './type.module.css';
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 15px 32px;
+  transition: border-color 200ms ease;
+}
+
+/* 色を変えるのではなく、枠のヘアラインだけ ink に上げる。
+   分離はすべてヘアラインが担うという規則に揃える */
+.buttonPrimary:hover {
+  border-color: var(--ink);
+}
+
+.buttonPrimary:active {
+  transform: translateY(1px);
+}
+
+/* ---- mono のナビ／フッターリンク ----
+   下線を引くのではなく、色をヘアライン1段ぶん上げる */
+.metaLink {
+  color: var(--meta);
+  transition: color 200ms ease;
+}
+
+.metaLink:hover {
+  color: var(--ink);
+}

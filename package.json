@@ -12,7 +12,8 @@
     "fonts": "tsx scripts/subset-fonts.ts",
     "fonts:fetch": "tsx scripts/fetch-fonts.ts",
     "typecheck": "tsc --noEmit",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify:motion": "tsx scripts/verify-motion.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
