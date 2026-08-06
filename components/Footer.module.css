@@ -1,0 +1,21 @@
+.footer {
+  padding: var(--space-xxl) var(--gutter);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: var(--canvas);
+}
+
+.link {
+  composes: labelMono from '../styles/type.module.css';
+  color: var(--meta);
+  display: block;
+  line-height: 2.4;
+}
+
+.wordmark {
+  composes: wordmark from '../styles/type.module.css';
+  color: var(--ink);
+  white-space: nowrap;
+}

@@ -1,0 +1,259 @@
+.stage {
+  height: 78vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 var(--gutter);
+  overflow: hidden;
+}
+
+.closing {
+  height: 64vh;
+}
+
+.heroTitle {
+  composes: displayXl from '../../styles/type.module.css';
+}
+
+.eyebrowOnGradient {
+  composes: labelMono from '../../styles/type.module.css';
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.band {
+  padding: var(--space-band) var(--gutter);
+  background: var(--canvas);
+}
+
+.wash[data-wash='aqua'] {
+  background: var(--wash-aqua);
+}
+.wash[data-wash='lemon'] {
+  background: var(--wash-lemon);
+}
+
+.inner {
+  max-width: var(--content-max-narrow);
+  margin: 0 auto;
+}
+
+.bandHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 56px;
+}
+
+.sectionTitle {
+  composes: displayMd from '../../styles/type.module.css';
+}
+
+.meta {
+  composes: labelMono from '../../styles/type.module.css';
+  color: var(--meta);
+}
+
+/* ---- Profile ---- */
+.profile {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.frame {
+  border: 1px solid var(--hairline-strong);
+  background: var(--frame-fill);
+}
+
+.frameBar {
+  composes: labelMonoSm from '../../styles/type.module.css';
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-sm);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--meta);
+  letter-spacing: 1.5px;
+  text-transform: none;
+}
+
+.portrait {
+  aspect-ratio: 3 / 4;
+  background: var(--placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* placeholder 上では meta が AA に届かない。TOP の shotLabel と同じ理由で ink */
+.portraitLabel {
+  composes: labelMonoSm from '../../styles/type.module.css';
+  color: var(--ink);
+}
+
+.caption {
+  composes: labelMono from '../../styles/type.module.css';
+  color: var(--meta);
+  margin-top: 14px;
+}
+
+.prose {
+  composes: bodyLg from '../../styles/type.module.css';
+  color: var(--body);
+  margin-bottom: 1.7em;
+}
+
+.prose:last-child {
+  margin-bottom: 0;
+}
+
+/* 強調は斜体にせず色を ink に上げる。太字は体系に存在しない */
+.prose em {
+  font-style: normal;
+  color: var(--ink);
+}
+
+/* ---- 数値（spec cell） ---- */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.cell {
+  padding: 44px 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  text-align: center;
+}
+
+.specValue {
+  composes: numberDisplay from '../../styles/type.module.css';
+}
+
+.specUnit {
+  font-size: 24px;
+}
+
+.specLabel {
+  composes: labelMonoSm from '../../styles/type.module.css';
+  color: var(--meta);
+  margin-top: var(--space-md);
+}
+
+/* ---- Career ---- */
+.job {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-xl);
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+.job:first-of-type {
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.period {
+  composes: labelMono from '../../styles/type.module.css';
+  color: var(--meta);
+  line-height: 1.8;
+}
+
+.company {
+  composes: displaySm from '../../styles/type.module.css';
+}
+
+.role {
+  composes: labelMono from '../../styles/type.module.css';
+  color: var(--meta);
+  margin-top: 10px;
+}
+
+.responsibilities {
+  margin-top: 20px;
+}
+
+.responsibility {
+  composes: bodyMd from '../../styles/type.module.css';
+  color: var(--body);
+  padding-left: 20px;
+  position: relative;
+}
+
+/* 中黒ではなく 6px のヘアラインのダッシュ */
+.responsibility::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15px;
+  width: 6px;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+/* ---- Capabilities ---- */
+.capability {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+.capability:first-of-type {
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.term {
+  composes: labelMono from '../../styles/type.module.css';
+  color: var(--meta);
+}
+
+.detail {
+  composes: bodyMd from '../../styles/type.module.css';
+  color: var(--body);
+}
+
+/* ---- CTA ---- */
+.buttonPrimary {
+  composes: buttonMono from '../../styles/type.module.css';
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 15px 32px;
+  margin-top: var(--space-xl);
+}
+
+.textLink {
+  composes: linkMono from '../../styles/type.module.css';
+  display: inline-block;
+  color: var(--ink);
+  border-bottom: 1px solid var(--hairline-strong);
+  padding-bottom: 3px;
+  margin-top: 22px;
+}
+
+@media (max-width: 900px) {
+  .profile {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  .frame {
+    max-width: 280px;
+  }
+  .specs {
+    grid-template-columns: 1fr 1fr;
+  }
+  .job,
+  .capability {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}

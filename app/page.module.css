@@ -1,0 +1,145 @@
+/* 各ステージは 100vh 固定。短い縦幅では frame の高さクランプがレイアウトを守るので、
+   内部スクロールは絶対に発生させない（DESIGN.md） */
+.stage {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 var(--gutter);
+  overflow: hidden;
+}
+
+.work[data-wash='aqua'] {
+  background: var(--wash-aqua);
+}
+.work[data-wash='peach'] {
+  background: var(--wash-peach);
+}
+.work[data-wash='pink'] {
+  background: var(--wash-pink);
+}
+.work[data-wash='lemon'] {
+  background: var(--wash-lemon);
+}
+
+.closing {
+  height: 70vh;
+}
+
+.eyebrow {
+  composes: labelMono from '../styles/type.module.css';
+  color: var(--meta);
+  margin-bottom: 28px;
+}
+
+/* グラデーションと彩度の高い wash の上では必ず ink。
+   meta はコントラストが足りない（DESIGN.md） */
+.onGradient {
+  color: var(--ink);
+}
+
+.heroTitle {
+  composes: displayXl from '../styles/type.module.css';
+}
+
+.workTitle {
+  composes: displayLg from '../styles/type.module.css';
+}
+
+.work .eyebrow {
+  margin-bottom: 18px;
+}
+
+/* wash の上なので ink。DESIGN.md の Don't「彩度のある wash に meta を置かない」に従う。
+   モックアップは meta だったが、wash-pink 上で 4.35 となり AA に届いていなかった */
+.counter {
+  composes: labelMono from '../styles/type.module.css';
+  position: absolute;
+  right: var(--gutter);
+  top: 100px;
+  color: var(--ink);
+}
+
+.scroll {
+  composes: labelMonoSm from '../styles/type.module.css';
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ink);
+}
+
+/* 額装。トラフィックライトのドットもブラウザクロームも影も付けない。
+   1px のヘアラインの矩形が、たまたま Web サイトを収めているという見え方 */
+.frame {
+  width: min(860px, 92vw);
+  border: 1px solid var(--hairline-strong);
+  background: var(--frame-fill);
+  margin: 34px 0 22px;
+}
+
+.frameBar {
+  composes: labelMonoSm from '../styles/type.module.css';
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-sm);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--meta);
+  letter-spacing: 1.5px;
+  /* フレームバーの URL は mono 唯一の小文字の例外 */
+  text-transform: none;
+}
+
+.shot {
+  height: min(44vh, 440px);
+  background: var(--placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* placeholder（#F2ECE7）上では meta が 4.49 で AA にわずかに届かないので ink。
+   DESIGN.md は meta のコントラストを canvas 基準でしか定義していない */
+.shotLabel {
+  composes: labelMonoSm from '../styles/type.module.css';
+  color: var(--ink);
+}
+
+.textLink {
+  composes: linkMono from '../styles/type.module.css';
+  display: inline-block;
+  color: var(--ink);
+  border-bottom: 1px solid var(--hairline-strong);
+  padding-bottom: 3px;
+  margin-top: var(--space-md);
+}
+
+/* 1ページに1箇所だけ。これがアクセント色の予算のすべて */
+.buttonPrimary {
+  composes: buttonMono from '../styles/type.module.css';
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 15px 32px;
+  margin-top: var(--space-xl);
+}
+
+/* 箱ボタンを2つ並べない。2つめは text-link にする（DESIGN.md） */
+.closing .textLink {
+  margin-top: 22px;
+}
+
+@media (max-width: 900px) {
+  .frame {
+    margin: 24px 0 16px;
+  }
+  .shot {
+    height: min(34vh, 300px);
+  }
+}

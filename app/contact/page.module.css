@@ -1,0 +1,43 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-band) var(--gutter);
+  background: var(--canvas);
+}
+
+.inner {
+  max-width: 34em;
+  text-align: center;
+}
+
+.eyebrow {
+  composes: labelMono from '../../styles/type.module.css';
+  color: var(--meta);
+  margin-bottom: 24px;
+}
+
+.title {
+  composes: displayLg from '../../styles/type.module.css';
+}
+
+.prose {
+  composes: bodyLg from '../../styles/type.module.css';
+  color: var(--body);
+  margin-top: var(--space-xl);
+}
+
+/* このページで唯一のアクセント色 */
+.buttonPrimary {
+  composes: buttonMono from '../../styles/type.module.css';
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 15px 32px;
+  margin-top: var(--space-xl);
+  /* メールアドレスなので大文字化しない */
+  text-transform: none;
+}
