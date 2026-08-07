@@ -278,26 +278,39 @@
   .lab {
     padding: 88px var(--gutter);
   }
-  /* index / タイトル の 2段組にたたむ。
-     メタと矢印は同じ行に並べる（矢印だけ単独行になると間延びする） */
+  /**
+   * index / タイトル + メタ の2段組にたたむ。
+   * 矢印は2段にまたがらせて行全体の縦中央に置く。
+   * メタと同じ段に並べると、行の中央から 21px ほど下にずれて見える。
+   * 矢印は行そのものへの導線であって、メタ情報の一部ではない。
+   */
   .row {
     grid-template-columns: 44px 1fr auto;
+    column-gap: 12px;
     row-gap: 6px;
-    gap: 12px;
   }
   .rowIndex {
+    grid-column: 1;
+    grid-row: 1;
     align-self: start;
     padding-top: 6px;
   }
   .rowTitle {
-    grid-column: 2 / -1;
+    grid-column: 2;
+    grid-row: 1;
   }
   .rowMeta {
     grid-column: 2;
+    grid-row: 2;
     text-align: left;
   }
   .rowArrow {
     grid-column: 3;
+    /* span で書く。grid-template-rows を定義していないので -1 は
+       暗黙の行ではなく明示グリッドの終端（=1行目）に解決され、
+       またがらずに1段目へ入ってしまう */
+    grid-row: 1 / span 2;
+    align-self: center;
     text-align: right;
   }
 }
