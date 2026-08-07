@@ -209,17 +209,44 @@
   align-items: center;
   gap: 20px;
   padding: 26px 0;
+}
+
+/**
+ * ホバーで動かすのは左側（index とタイトル）だけ。
+ * 右のスタック表記と矢印は固定する。行ごと動かすと、右端の矢印が
+ * li の外へはみ出してしまう。
+ *
+ * 12px は spacing ラダーの sm。刻みから外れた値を持ち込まない。
+ * キーボード操作でも同じ反応を返す。
+ */
+.rowIndex,
+.rowTitle {
   transition: transform 200ms ease;
 }
 
 /**
- * ホバーした行だけを右へ 12px 送る。
- * 影も塗りも使えないので、動きそのものを応答にする。
- * 12px は spacing ラダーの sm。刻みから外れた値を持ち込まない。
- * キーボード操作でも同じ反応を返す。
+ * タイトルに移動量ぶんの右余白をあらかじめ取っておく。
+ * こうすると文字の折り返し位置が 12px 手前になり、右へ動かしたときに
+ * 文字の右端がちょうど元のトラック境界に収まる。
+ * これが無いと、タブレット幅のようにトラックが詰まった状態で
+ * タイトルが右のスタック表記側へ突き出す。
+ *
+ * min-width: 0 はグリッドの既定 min-width:auto を打ち消すため。
+ * 長い単語があるとトラックを押し広げて溢れる。
  */
-.row:hover,
-.row:focus-visible {
+.rowTitle {
+  min-width: 0;
+  padding-right: var(--space-sm);
+  /* min-width: 0 はトラックが広がるのを防ぐだけで、折り返せない長い語が
+     ボックスから溢れるのは止まらない。実測で 901px 幅のときスタック表記に
+     32px 食い込んだので、語の途中でも折り返させる */
+  overflow-wrap: break-word;
+}
+
+.row:hover .rowIndex,
+.row:hover .rowTitle,
+.row:focus-visible .rowIndex,
+.row:focus-visible .rowTitle {
   transform: translateX(var(--space-sm));
 }
 
