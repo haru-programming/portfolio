@@ -70,25 +70,6 @@ export default async function About() {
         </div>
       </div>
 
-      {/* 数値 */}
-      <div className={`${styles.band} ${styles.wash}`} data-wash="aqua">
-        <div className={styles.inner}>
-          <dl className={styles.specs}>
-            {about.specs.map((spec) => (
-              <div key={spec.label} className={styles.cell}>
-                <dd className={styles.specValue}>
-                  {spec.value}
-                  {spec.unit ? (
-                    <span className={styles.specUnit}>{spec.unit}</span>
-                  ) : null}
-                </dd>
-                <dt className={styles.specLabel}>{spec.label}</dt>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-
       {/* Career */}
       <div className={styles.band}>
         <div className={styles.inner}>

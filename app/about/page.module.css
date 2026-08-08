@@ -118,33 +118,6 @@
   color: var(--ink);
 }
 
-/* ---- 数値（spec cell） ---- */
-.specs {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--hairline-strong);
-}
-
-.cell {
-  padding: 44px 0;
-  border-bottom: 1px solid var(--hairline-strong);
-  text-align: center;
-}
-
-.specValue {
-  composes: numberDisplay from '../../styles/type.module.css';
-}
-
-.specUnit {
-  font-size: 24px;
-}
-
-.specLabel {
-  composes: labelMonoSm from '../../styles/type.module.css';
-  color: var(--meta);
-  margin-top: var(--space-md);
-}
-
 /* ---- Career ---- */
 .job {
   display: grid;
@@ -242,9 +215,6 @@
   }
   .frame {
     max-width: 280px;
-  }
-  .specs {
-    grid-template-columns: 1fr 1fr;
   }
   .job,
   .capability {

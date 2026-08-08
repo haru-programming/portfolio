@@ -36,12 +36,6 @@ const labSchema = z.object({
   url: z.string().url(),
 })
 
-const specSchema = z.object({
-  value: z.string().min(1),
-  unit: z.string().optional(),
-  label: z.string().min(1),
-})
-
 const jobSchema = z.object({
   period: z.string().min(1),
   company: z.string().min(1),
@@ -59,7 +53,6 @@ const aboutSchema = z.object({
   name: z.string().min(1),
   role: z.string().min(1),
   portraitAlt: z.string().min(1),
-  specs: z.array(specSchema).length(4),
   career: z.array(jobSchema).min(1),
   capabilities: z.array(capabilitySchema).min(1),
 })
