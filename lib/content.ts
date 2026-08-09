@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'node:fs/promises'
+import { readFile, readdir, stat } from 'node:fs/promises'
 import { join } from 'node:path'
 import matter from 'gray-matter'
 import { z } from 'zod'
@@ -57,10 +57,23 @@ const aboutSchema = z.object({
   capabilities: z.array(capabilitySchema).min(1),
 })
 
-export type Work = z.infer<typeof workSchema> & { body: string[] }
+/** hasShot は assets/shots/ に原寸が置かれているかどうか。ビルド時に解決する */
+export type Work = z.infer<typeof workSchema> & {
+  body: string[]
+  hasShot: boolean
+}
 export type Lab = z.infer<typeof labSchema>
 export type About = z.infer<typeof aboutSchema> & { body: string[] }
 export type Wash = z.infer<typeof washSchema>
+
+const fileExists = async (path: string): Promise<boolean> => {
+  try {
+    await stat(path)
+    return true
+  } catch {
+    return false
+  }
+}
 
 /** 空行区切りを段落配列にする。 */
 const toParagraphs = (body: string): string[] =>
@@ -101,9 +114,15 @@ export const getWorks = async (): Promise<Work[]> => {
       const file = join(dir, name)
       const raw = await readFile(file, 'utf8')
       const { data, content } = matter(raw)
+      const work = parseOrThrow(workSchema, data, file)
       return {
-        ...parseOrThrow(workSchema, data, file),
+        ...work,
         body: toParagraphs(content),
+        // 変換済みの書き出しが存在するかどうかで判定する。
+        // 原寸の有無ではなく public/ 側を見ることで、
+        // 画像を置いたのに npm run images を忘れた場合も
+        // プレースホルダー表示のままになり、404 の <img> を出さずに済む。
+        hasShot: await fileExists(join('public/shots', `${work.shot}-1440.jpg`)),
       }
     }),
   )

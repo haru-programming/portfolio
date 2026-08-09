@@ -59,7 +59,34 @@ export default async function Home() {
             <div className={styles.frame}>
               <div className={styles.frameBar}>{work.domain}</div>
               <div className={styles.shot}>
-                <span className={styles.shotLabel}>Screenshot — 1440 × 900</span>
+                {work.hasShot ? (
+                  <picture>
+                    <source
+                      type="image/avif"
+                      srcSet={`/shots/${work.shot}-860.avif 860w, /shots/${work.shot}-1440.avif 1440w`}
+                      sizes="(max-width: 900px) 92vw, 860px"
+                    />
+                    <source
+                      type="image/webp"
+                      srcSet={`/shots/${work.shot}-860.webp 860w, /shots/${work.shot}-1440.webp 1440w`}
+                      sizes="(max-width: 900px) 92vw, 860px"
+                    />
+                    <img
+                      className={styles.shotImage}
+                      src={`/shots/${work.shot}-1440.jpg`}
+                      width={1440}
+                      height={900}
+                      alt={`${work.title} のスクリーンショット`}
+                      /* 画面下にあり LCP 要素ではないので遅延で読む */
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
+                ) : (
+                  <span className={styles.shotLabel}>
+                    Screenshot — 1440 × 900
+                  </span>
+                )}
               </div>
             </div>
 

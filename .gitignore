@@ -15,3 +15,6 @@ styles/generated/
 
 # ローカル専用の権限設定。共有しない
 .claude/settings.local.json
+
+# 画像の変換結果はビルド成果物。原寸（assets/shots/）はコミットする
+public/shots/
