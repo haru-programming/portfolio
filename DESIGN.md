@@ -31,10 +31,10 @@ colors:
   grad-pink: "#FCAFC0"
   grad-peach: "#FFC9A8"
   # wash palette — flat full-bleed section fills only
-  wash-aqua: "#E9F8F6"
-  wash-peach: "#FFF2E9"
-  wash-pink: "#FEEBEF"
-  wash-lemon: "#FEFAE2"
+  wash-aqua: "#ECF7F2"
+  wash-peach: "#FDF1E7"
+  wash-pink: "#FDECEC"
+  wash-lemon: "#FCF8E1"
 
 typography:
   wordmark:
@@ -305,15 +305,18 @@ work in watercolour.
 
 ### Wash palette — flat fills only
 
-Each gradient colour mixed 75% with white. Used exclusively as full-bleed flat
+Each gradient colour mixed 80% with the ivory canvas — not with pure white.
+Mixing toward white keeps the chroma and lifts the wash off the ivory ground;
+mixing toward the canvas drops the saturation (aqua 0.54 → 0.39) and reads as
+a tint laid over the same paper. Used exclusively as full-bleed flat
 section backgrounds, where the undiluted colour would overwhelm.
 
 | Token | Hex | Derived from |
 |---|---|---|
-| `{colors.wash-aqua}` | `#E9F8F6` | grad-aqua |
-| `{colors.wash-peach}` | `#FFF2E9` | grad-peach |
-| `{colors.wash-pink}` | `#FEEBEF` | grad-pink |
-| `{colors.wash-lemon}` | `#FEFAE2` | grad-lemon |
+| `{colors.wash-aqua}` | `#ECF7F2` | grad-aqua |
+| `{colors.wash-peach}` | `#FDF1E7` | grad-peach |
+| `{colors.wash-pink}` | `#FDECEC` | grad-pink |
+| `{colors.wash-lemon}` | `#FCF8E1` | grad-lemon |
 
 The split between `grad-*` and `wash-*` is functional, not decorative: the same
 hex behaves completely differently as a soft bloom versus a 100vh flat fill.
@@ -531,7 +534,7 @@ Body            #635850   running copy
 Meta            #756A61   mono labels
 Hairline        #EFE4DA / #DFD0C2
 Accent          #E8A697   once per page, on the primary CTA only
-Washes          #E9F8F6 / #FFF2E9 / #FEEBEF / #FEFAE2
+Washes          #ECF7F2 / #FDF1E7 / #FDECEC / #FCF8E1
 Display         Jost 300, UPPERCASE, +2–6px tracking
 Body            EB Garamond / Zen Old Mincho, line-height 2.0+
 Labels          IBM Plex Mono, UPPERCASE, +2–2.5px tracking
@@ -541,7 +544,7 @@ Shadows         none
 
 ### Example prompts
 
-**Project stage** — "Build a 100vh section on a flat `#E9F8F6` background.
+**Project stage** — "Build a 100vh section on a flat `#ECF7F2` background.
 Centre a column: an 11px IBM Plex Mono uppercase line with 2px tracking reading
 the year and role, then a 44px Jost weight-300 uppercase title with 3px
 tracking, then a 860px-wide white rectangle with a 1px `#DFD0C2` border and a
@@ -555,7 +558,7 @@ with 1.5px tracking, the role in mono below, and responsibilities as a list
 whose markers are 6px-wide 1px `#DFD0C2` dashes. 40px vertical padding, 1px
 `#DFD0C2` bottom border."
 
-**Spec band** — "Four equal columns on `#E9F8F6`, each with a 64px Jost 300
+**Spec band** — "Four equal columns on `#ECF7F2`, each with a 64px Jost 300
 number and a 10px mono uppercase label beneath, separated by 1px `#DFD0C2`
 lines top and bottom. No fill on the cells, no borders between them."
 

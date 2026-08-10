@@ -33,11 +33,15 @@
 
   /* ---- wash palette — 100vh のベタ塗りのみ ---- */
   /* grad-* と混同しないこと。同じ色相でも用途が別。
-     grad-* を白と 75% で混ぜた値。65% だと重なり演出で面が主張しすぎた */
-  --wash-aqua: #e9f8f6;
-  --wash-peach: #fff2e9;
-  --wash-pink: #feebef;
-  --wash-lemon: #fefae2;
+     grad-* を canvas と 80% で混ぜた値。
+     混ぜる先を白ではなく canvas にしているのが要点。白に寄せると明るくなっても
+     彩度が残り、アイボリーの地色から浮いて「元気な」面になる。canvas に寄せると
+     彩度が落ち（aqua 0.54→0.39）、同じ地色に色を透かした見え方に近づく。
+     canvas との見分けもむしろ良くなる（peach の差 9→16） */
+  --wash-aqua: #ecf7f2;
+  --wash-peach: #fdf1e7;
+  --wash-pink: #fdecec;
+  --wash-lemon: #fcf8e1;
 
   /* ---- families（役割を跨がせない） ---- */
   /* ラテンは Garamond、和文は Zen Old Mincho に自動で振り分けられる。
