@@ -23,8 +23,13 @@ const OUT_DIR = 'public/shots'
 /** 額装の表示幅に合わせた書き出し幅 */
 const WIDTHS = [860, 1440] as const
 
-/** 想定する原寸。ずれていたら警告する（切り取られ方が変わるため） */
-const EXPECTED = { width: 1440, height: 900 }
+/**
+ * 額装の中の表示領域（CSS px）。
+ * 幅 min(860px,92vw) の枠から 1px のボーダー2本を引いて 858、
+ * 高さは min(44vh, 440px) の上限。
+ * object-fit: cover なので、原寸の比率がこれより縦長だと下が切れる。
+ */
+const DISPLAY = { width: 858, height: 440 }
 
 const exists = async (path: string): Promise<boolean> => {
   try {
@@ -60,10 +65,16 @@ const main = async (): Promise<void> => {
     const image = sharp(input)
     const meta = await image.metadata()
 
-    if (meta.width !== EXPECTED.width || meta.height !== EXPECTED.height) {
+    // 額装に収めたとき、原寸の縦のうちどこまで見えるかを出す。
+    // 「1440×900 と違う」とだけ言われても判断できないので、切れる量を数字で示す。
+    if (meta.width && meta.height) {
+      const displayRatio = DISPLAY.width / DISPLAY.height
+      const sourceRatio = meta.width / meta.height
+      const visible = Math.min(1, sourceRatio / displayRatio)
+      const cropped = Math.round((1 - visible) * 100)
       console.log(
-        `  ! ${file} は ${meta.width}×${meta.height}。` +
-          `${EXPECTED.width}×${EXPECTED.height} を想定しているので切り取られ方が変わります`,
+        `  ${file}  ${meta.width}×${meta.height}（比率 ${sourceRatio.toFixed(3)}）` +
+          `  額装では上から ${100 - cropped}% が見え、下 ${cropped}% が切れます`,
       )
     }
 
