@@ -104,12 +104,27 @@
   height: 30px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
   padding: 0 var(--space-sm);
   border-bottom: 1px solid var(--hairline);
   color: var(--meta);
   letter-spacing: 1.5px;
-  /* フレームバーの URL は mono 唯一の小文字の例外 */
+}
+
+/* フレームバーの URL は mono 唯一の小文字の例外 */
+.frameDomain {
   text-transform: none;
+  white-space: nowrap;
+}
+
+/* スタックは通常どおり大文字。狭いと省略する（ドメインを優先） */
+.frameStack {
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .shot {
@@ -119,19 +134,6 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-
-/**
- * 縦が短い画面では従来の 44vh に戻す。
- * ステージは 100vh 固定で overflow: hidden なので、中身があふれると
- * 黙って切れる。52vh のままだと縦 520px を下回った時点であふれ始める
- * （実測: 520px で余り 9px、480px で 10px はみ出し）。
- * 44vh なら 440px まで持つので、横向きのタブレットなどでも崩れない。
- */
-@media (max-height: 640px) {
-  .shot {
-    height: min(44vh, 440px);
-  }
 }
 
 .shot picture {
@@ -157,6 +159,22 @@
 .shotLabel {
   composes: labelMonoSm from '../styles/type.module.css';
   color: var(--ink);
+}
+
+/**
+ * 一筆。額装と同じ幅の箱を作り、その中で左揃えにする。
+ * ステージ全体が中央揃えなので、こうしないと額装の左端と揃わない。
+ * 本文書体（明朝）で組むことで、mono のラベル群と役割が分かれる。
+ */
+.note {
+  composes: bodyMd from '../styles/type.module.css';
+  /* 額装とまったく同じ幅にする。max-width で縮めると、親が中央揃えなので
+     箱ごと中央へ寄って額装の左端と揃わなくなる（実測で 207px ずれた）。
+     行長は note を 90 字に制限することで抑える（lib/content.ts のスキーマ） */
+  width: min(860px, 92vw);
+  text-align: left;
+  color: var(--body);
+  margin-top: var(--space-xs);
 }
 
 .textLink {
@@ -353,5 +371,34 @@
   }
   .shot {
     height: min(40vh, 360px);
+  }
+}
+
+/* ============================================================
+   縦が短い画面での額装のクランプ
+
+   ステージは 100vh 固定 + overflow: hidden なので、中身があふれると
+   黙って切れる。一筆（最大2行 = 約60px）を必ず残したいので、
+   縦が詰まるほど額装のほうを削る。
+
+   幅ベースのメディアクエリより後に書くこと。
+   844x390 のような「幅は狭いが縦も短い」端末では、
+   先に書くと max-width: 900px の指定に負けて効かない。
+
+   実測（一筆2行を表示したまま、ステージからあふれないこと）:
+     1350x520  余り  16px
+     1350x470  余り -12px → 34vh へ切り替えて +35px
+      932x430  余り -34px → 同上で +9px
+      844x390  余り  -4px → 同上で +19px
+   ============================================================ */
+@media (max-height: 640px) {
+  .shot {
+    height: min(44vh, 440px);
+  }
+}
+
+@media (max-height: 560px) {
+  .shot {
+    height: min(34vh, 260px);
   }
 }

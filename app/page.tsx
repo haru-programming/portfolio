@@ -57,7 +57,14 @@ export default async function Home() {
 
             {/* 額装。他社サイトの配色がパレットを飲み込まないよう全画面ブリードさせない */}
             <div className={styles.frame}>
-              <div className={styles.frameBar}>{work.domain}</div>
+              {/* スタック表記はバーの右へ。額装の下に一筆を置く縦を空けるため。
+                  ドメインもスタックも「その展示物のメタ情報」なので同じ帯に並ぶのは自然 */}
+              <div className={styles.frameBar}>
+                <span className={styles.frameDomain}>{work.domain}</span>
+                <span className={styles.frameStack}>
+                  {work.stack.join(' · ')}
+                </span>
+              </div>
               <div className={styles.shot}>
                 {work.hasShot ? (
                   <picture>
@@ -90,11 +97,10 @@ export default async function Home() {
               </div>
             </div>
 
-            <p
-              className={`${styles.eyebrow} ${styles.onGradient}`}
-            >
-              {work.stack.join(' · ')}
-            </p>
+            {/* 一筆。額装の左端に揃えることで、中央揃えの見出しに対して
+                「本文」ではなく「キャプション」として読ませる */}
+            {work.note ? <p className={styles.note}>{work.note}</p> : null}
+
             <a
               className={styles.textLink}
               href={work.url}

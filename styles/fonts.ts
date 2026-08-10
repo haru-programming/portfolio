@@ -33,7 +33,19 @@ export const ebGaramond = localFont({
   variable: '--font-body-latin',
   preload: false,
   adjustFontFallback: 'Times New Roman',
-  fallback: ['Georgia', 'serif'],
+  /**
+   * 総称の serif をここに入れてはいけない。
+   *
+   * next/font は fallback をそのまま CSS 変数に展開するので、
+   * --font-body-stack が
+   *   ebGaramond, "ebGaramond Fallback", Georgia, serif, zenOldMincho, ...
+   * となる。総称ファミリは必ずマッチするため、和文が serif で止まり
+   * zenOldMincho に到達しない。実際サイト全体の和文が
+   * Hiragino Mincho ProN（macOS のシステム書体）で描かれていた。
+   *
+   * 総称は --font-body-stack の末尾に一度だけ置く（styles/tokens.css）。
+   */
+  fallback: ['Georgia'],
 })
 
 /**

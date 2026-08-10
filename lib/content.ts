@@ -26,6 +26,12 @@ const workSchema = z.object({
   stack: z.array(z.string().min(1)).min(1),
   wash: washSchema,
   shot: z.string().min(1),
+  /**
+   * 額装の下に出す一筆。何に気をつけたか、どう工夫したか。
+   * ステージは 100vh 固定なので長さを制限する。2行に収まる目安が 90 字。
+   * 超えるとステージからあふれるため、スキーマで弾く。
+   */
+  note: z.string().min(1).max(90).optional(),
 })
 
 const labSchema = z.object({
