@@ -32,11 +32,12 @@
   --grad-peach: #ffc9a8;
 
   /* ---- wash palette — 100vh のベタ塗りのみ ---- */
-  /* grad-* と混同しないこと。同じ色相でも用途が別 */
-  --wash-aqua: #e1f6f3;
-  --wash-peach: #ffece1;
-  --wash-pink: #fee3e9;
-  --wash-lemon: #fdf8d6;
+  /* grad-* と混同しないこと。同じ色相でも用途が別。
+     grad-* を白と 75% で混ぜた値。65% だと重なり演出で面が主張しすぎた */
+  --wash-aqua: #e9f8f6;
+  --wash-peach: #fff2e9;
+  --wash-pink: #feebef;
+  --wash-lemon: #fefae2;
 
   /* ---- families（役割を跨がせない） ---- */
   /* ラテンは Garamond、和文は Zen Old Mincho に自動で振り分けられる。

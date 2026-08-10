@@ -113,12 +113,25 @@
 }
 
 .shot {
-  height: min(44vh, 440px);
+  height: min(52vh, 520px);
   background: var(--placeholder);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+/**
+ * 縦が短い画面では従来の 44vh に戻す。
+ * ステージは 100vh 固定で overflow: hidden なので、中身があふれると
+ * 黙って切れる。52vh のままだと縦 520px を下回った時点であふれ始める
+ * （実測: 520px で余り 9px、480px で 10px はみ出し）。
+ * 44vh なら 440px まで持つので、横向きのタブレットなどでも崩れない。
+ */
+@media (max-height: 640px) {
+  .shot {
+    height: min(44vh, 440px);
+  }
 }
 
 .shot picture {
@@ -128,7 +141,7 @@
 }
 
 /**
- * 原寸 1440×900（16:10）を 858×440（約 1.95:1）の枠に収めるので上下が切れる。
+ * 表示領域は最大 858×520（約 1.65:1）。原寸がこれより縦長だと下が切れるので、
  * object-position: top でサイトの上部（ヘッダーとヒーロー）を残す。
  * 枠の高さは固定なので、画像の読み込みでレイアウトはずれない。
  */
@@ -339,6 +352,6 @@
     margin: 24px 0 16px;
   }
   .shot {
-    height: min(34vh, 300px);
+    height: min(40vh, 360px);
   }
 }

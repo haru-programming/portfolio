@@ -31,10 +31,10 @@ colors:
   grad-pink: "#FCAFC0"
   grad-peach: "#FFC9A8"
   # wash palette — flat full-bleed section fills only
-  wash-aqua: "#E1F6F3"
-  wash-peach: "#FFECE1"
-  wash-pink: "#FEE3E9"
-  wash-lemon: "#FDF8D6"
+  wash-aqua: "#E9F8F6"
+  wash-peach: "#FFF2E9"
+  wash-pink: "#FEEBEF"
+  wash-lemon: "#FEFAE2"
 
 typography:
   wordmark:
@@ -305,15 +305,15 @@ work in watercolour.
 
 ### Wash palette — flat fills only
 
-Each gradient colour mixed 65% with white. Used exclusively as full-bleed flat
+Each gradient colour mixed 75% with white. Used exclusively as full-bleed flat
 section backgrounds, where the undiluted colour would overwhelm.
 
 | Token | Hex | Derived from |
 |---|---|---|
-| `{colors.wash-aqua}` | `#E1F6F3` | grad-aqua |
-| `{colors.wash-peach}` | `#FFECE1` | grad-peach |
-| `{colors.wash-pink}` | `#FEE3E9` | grad-pink |
-| `{colors.wash-lemon}` | `#FDF8D6` | grad-lemon |
+| `{colors.wash-aqua}` | `#E9F8F6` | grad-aqua |
+| `{colors.wash-peach}` | `#FFF2E9` | grad-peach |
+| `{colors.wash-pink}` | `#FEEBEF` | grad-pink |
+| `{colors.wash-lemon}` | `#FEFAE2` | grad-lemon |
 
 The split between `grad-*` and `wash-*` is functional, not decorative: the same
 hex behaves completely differently as a soft bloom versus a 100vh flat fill.
@@ -425,7 +425,7 @@ centred: mono year/role → project title → `frame` → mono tech stack →
 `{colors.frame-fill}` white interior, 0px corners, `min(860px, 92vw)` wide, with
 a 30px `frame-bar` carrying the domain in mono. No traffic-light dots, no
 rounded corners, no shadow — the frame is a hairline rectangle that happens to
-hold a website. Image area clamps to `min(44vh, 440px)` so the stage always
+hold a website. Image area clamps to `min(52vh, 520px)` so the stage always
 fits one viewport.
 
 **`button-primary`** — `{colors.accent}` fill, `{colors.on-accent}` label,
@@ -511,7 +511,7 @@ fast enough to be visibly alive.
 
 | Breakpoint | Changes |
 |---|---|
-| < 900px | Gutter 40 → 20px. display-xl 64 → 34px, display-lg 44 → 26px. Frame image height → `min(34vh, 300px)`. Spec cells 4-up → 2-up. Profile, career, and capabilities grids collapse to single column. Band padding 140 → 88px. |
+| < 900px | Gutter 40 → 20px. display-xl 64 → 34px, display-lg 44 → 26px. Frame image height → `min(40vh, 360px)`. Spec cells 4-up → 2-up. Profile, career, and capabilities grids collapse to single column. Band padding 140 → 88px. |
 | ≥ 900px | Full layout. |
 
 Touch targets: buttons render 46px tall; nav and text links are padded to meet
@@ -531,7 +531,7 @@ Body            #635850   running copy
 Meta            #756A61   mono labels
 Hairline        #EFE4DA / #DFD0C2
 Accent          #E8A697   once per page, on the primary CTA only
-Washes          #E1F6F3 / #FFECE1 / #FEE3E9 / #FDF8D6
+Washes          #E9F8F6 / #FFF2E9 / #FEEBEF / #FEFAE2
 Display         Jost 300, UPPERCASE, +2–6px tracking
 Body            EB Garamond / Zen Old Mincho, line-height 2.0+
 Labels          IBM Plex Mono, UPPERCASE, +2–2.5px tracking
@@ -541,7 +541,7 @@ Shadows         none
 
 ### Example prompts
 
-**Project stage** — "Build a 100vh section on a flat `#E1F6F3` background.
+**Project stage** — "Build a 100vh section on a flat `#E9F8F6` background.
 Centre a column: an 11px IBM Plex Mono uppercase line with 2px tracking reading
 the year and role, then a 44px Jost weight-300 uppercase title with 3px
 tracking, then a 860px-wide white rectangle with a 1px `#DFD0C2` border and a
@@ -555,7 +555,7 @@ with 1.5px tracking, the role in mono below, and responsibilities as a list
 whose markers are 6px-wide 1px `#DFD0C2` dashes. 40px vertical padding, 1px
 `#DFD0C2` bottom border."
 
-**Spec band** — "Four equal columns on `#E1F6F3`, each with a 64px Jost 300
+**Spec band** — "Four equal columns on `#E9F8F6`, each with a 64px Jost 300
 number and a 10px mono uppercase label beneath, separated by 1px `#DFD0C2`
 lines top and bottom. No fill on the cells, no borders between them."
 
