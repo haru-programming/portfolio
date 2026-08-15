@@ -28,10 +28,12 @@ const workSchema = z.object({
   shot: z.string().min(1),
   /**
    * 額装の下に出す一筆。何に気をつけたか、どう工夫したか。
-   * ステージは 100vh 固定なので長さを制限する。2行に収まる目安が 90 字。
-   * 超えるとステージからあふれるため、スキーマで弾く。
+   *
+   * 60 字上限。表示側の max-width: 30em（約30字/行）と対になっていて、
+   * これを超えると3行になりステージ（100vh 固定・overflow: hidden）から
+   * あふれて黙って切れる。片方だけ変えないこと。
    */
-  note: z.string().min(1).max(90).optional(),
+  note: z.string().min(1).max(60).optional(),
 })
 
 const labSchema = z.object({

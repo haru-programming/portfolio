@@ -11,7 +11,7 @@
 /* ---- text-link ----
    箱ボタンを2つ並べない代わりに使う。下線は 1px のヘアライン */
 .textLink {
-  composes: linkMono from './type.module.css';
+  composes: linkLabel from './type.module.css';
   display: inline-block;
   color: var(--ink);
   border-bottom: 1px solid var(--hairline-strong);
@@ -36,7 +36,7 @@
 /* ---- button-primary ----
    1ページに1箇所だけ。これがアクセント色の予算のすべて */
 .buttonPrimary {
-  composes: buttonMono from './type.module.css';
+  composes: buttonLabel from './type.module.css';
   display: inline-block;
   background: var(--accent);
   color: var(--on-accent);
@@ -56,7 +56,7 @@
   transform: translateY(1px);
 }
 
-/* ---- mono のナビ／フッターリンク ----
+/* ---- ナビ／フッターのリンク ----
    下線を引くのではなく、色をヘアライン1段ぶん上げる */
 .metaLink {
   color: var(--meta);

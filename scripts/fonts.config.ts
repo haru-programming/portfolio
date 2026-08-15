@@ -40,7 +40,7 @@ export const FONTS: readonly FontSource[] = [
     // DESIGN.md が使うのは 300（display）と 400（wordmark）のみ。
     // 可変のまま 300-400 に狭める。1ファイルで両ウェイトを賄える。
     variationAxes: { wght: { min: 300, max: 400 } },
-    role: 'display headings + wordmark（英字大文字のみ）',
+    role: '見出し・ワードマーク・ラベル（英字大文字）',
   },
   {
     id: 'eb-garamond',
@@ -51,14 +51,6 @@ export const FONTS: readonly FontSource[] = [
     // 本文は 400 だけ。単一値にピン留めして静的インスタンス化する。
     variationAxes: { wght: 400 },
     role: '本文のラテン文字',
-  },
-  {
-    id: 'ibm-plex-mono',
-    family: 'IBM Plex Mono',
-    file: 'IBMPlexMono-Regular.ttf',
-    url: `${RAW}/ibmplexmono/IBMPlexMono-Regular.ttf`,
-    charset: 'latin',
-    role: 'ラベル・ボタン・リンク・メタ情報',
   },
   {
     id: 'zen-old-mincho',

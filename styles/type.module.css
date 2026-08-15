@@ -82,48 +82,48 @@
   letter-spacing: 0;
 }
 
-/* mono は常に大文字。小文字にするとラベルではなくコードに見える。
+/* ラベルは常に大文字。小文字にすると本文と見分けがつかない。
    例外はフレームバー内の URL だけ */
-.labelMono {
-  font-family: var(--font-mono-stack);
+.label {
+  font-family: var(--font-label-stack);
   font-size: 11px;
   font-weight: 400;
   line-height: 1.4;
-  letter-spacing: 2px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
 }
 
-.labelMonoSm {
-  font-family: var(--font-mono-stack);
+.labelSm {
+  font-family: var(--font-label-stack);
   font-size: 10px;
   font-weight: 400;
   line-height: 1.4;
-  letter-spacing: 2px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
 }
 
-.navMono {
-  font-family: var(--font-mono-stack);
+.navLabel {
+  font-family: var(--font-label-stack);
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: 2px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
 }
 
-.buttonMono {
-  font-family: var(--font-mono-stack);
+.buttonLabel {
+  font-family: var(--font-label-stack);
   font-size: 14px;
   font-weight: 400;
   line-height: 1;
-  letter-spacing: 2.5px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
 }
 
-.linkMono {
-  font-family: var(--font-mono-stack);
+.linkLabel {
+  font-family: var(--font-label-stack);
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: 2.5px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
 }
 

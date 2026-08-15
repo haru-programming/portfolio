@@ -11,7 +11,13 @@ import localFont from 'next/font/local'
  *   よって preload するのは Jost だけにして、残り3書体は swap に任せる。
  */
 
-/** display 見出しとワードマーク。LCP要素が使う唯一の書体。 */
+/**
+ * display 見出し・ワードマーク・ラベルのすべて。LCP要素が使う書体でもある。
+ *
+ * 当初はラベルを IBM Plex Mono で組んでいたが、開発ツールや AI 系プロダクトの
+ * UI と結びつきが強く、意図しない印象を与えていたため Jost に統合した。
+ * 書体は3つになり、配信も1つ減っている。
+ */
 export const jost = localFont({
   src: './generated/jost-subset.woff2',
   // 可変フォントのまま 300-400 に絞ってあるので、1ファイルで両ウェイトを賄う。
@@ -76,22 +82,9 @@ export const zenOldMincho = localFont({
   ],
 })
 
-/** ラベル・ボタン・リンク・メタ情報。 */
-export const ibmPlexMono = localFont({
-  src: './generated/ibm-plex-mono-subset.woff2',
-  weight: '400',
-  style: 'normal',
-  display: 'swap',
-  variable: '--font-mono',
-  preload: false,
-  adjustFontFallback: 'Arial',
-  fallback: ['ui-monospace', 'monospace'],
-})
-
-/** <html> に付けるクラス。4書体すべての CSS 変数を有効にする。 */
+/** <html> に付けるクラス。3書体すべての CSS 変数を有効にする。 */
 export const fontVariables = [
   jost.variable,
   ebGaramond.variable,
   zenOldMincho.variable,
-  ibmPlexMono.variable,
 ].join(' ')

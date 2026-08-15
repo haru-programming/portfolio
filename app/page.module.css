@@ -48,7 +48,7 @@
 }
 
 .eyebrow {
-  composes: labelMono from '../styles/type.module.css';
+  composes: label from '../styles/type.module.css';
   color: var(--meta);
   margin-bottom: 28px;
 }
@@ -74,7 +74,7 @@
 /* wash の上なので ink。DESIGN.md の Don't「彩度のある wash に meta を置かない」に従う。
    モックアップは meta だったが、wash-pink 上で 4.35 となり AA に届いていなかった */
 .counter {
-  composes: labelMono from '../styles/type.module.css';
+  composes: label from '../styles/type.module.css';
   position: absolute;
   right: var(--gutter);
   top: 100px;
@@ -82,7 +82,7 @@
 }
 
 .scroll {
-  composes: labelMonoSm from '../styles/type.module.css';
+  composes: labelSm from '../styles/type.module.css';
   position: absolute;
   bottom: 32px;
   left: 50%;
@@ -100,7 +100,7 @@
 }
 
 .frameBar {
-  composes: labelMonoSm from '../styles/type.module.css';
+  composes: labelSm from '../styles/type.module.css';
   height: 30px;
   display: flex;
   align-items: center;
@@ -109,10 +109,10 @@
   padding: 0 var(--space-sm);
   border-bottom: 1px solid var(--hairline);
   color: var(--meta);
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
 }
 
-/* フレームバーの URL は mono 唯一の小文字の例外 */
+/* フレームバーの URL はラベル唯一の小文字の例外 */
 .frameDomain {
   text-transform: none;
   white-space: nowrap;
@@ -157,24 +157,48 @@
 /* placeholder（#F2ECE7）上では meta が 4.49 で AA にわずかに届かないので ink。
    DESIGN.md は meta のコントラストを canvas 基準でしか定義していない */
 .shotLabel {
-  composes: labelMonoSm from '../styles/type.module.css';
+  composes: labelSm from '../styles/type.module.css';
   color: var(--ink);
 }
 
 /**
- * 一筆。額装と同じ幅の箱を作り、その中で左揃えにする。
- * ステージ全体が中央揃えなので、こうしないと額装の左端と揃わない。
- * 本文書体（明朝）で組むことで、mono のラベル群と役割が分かれる。
+ * 額装の下の2ブロック。上のフレームバーと同じ組み（左に情報 / 右にラベル）にして、
+ * 額装を上下から同じ構造で挟む。
+ *
+ * 幅は額装と完全に一致させる。ここを狭めると親が中央揃えなので
+ * 箱ごと中央へ寄り、額装の左端と揃わなくなる（実測で 207px ずれた）。
  */
+.frameFoot {
+  width: min(860px, 92vw);
+  display: flex;
+  justify-content: space-between;
+  /* 一筆が2行になってもリンクは1行目のベースラインに揃える */
+  align-items: baseline;
+  gap: var(--space-xl);
+  text-align: left;
+  margin-top: var(--space-xs);
+}
+
 .note {
   composes: bodyMd from '../styles/type.module.css';
-  /* 額装とまったく同じ幅にする。max-width で縮めると、親が中央揃えなので
-     箱ごと中央へ寄って額装の左端と揃わなくなる（実測で 207px ずれた）。
-     行長は note を 90 字に制限することで抑える（lib/content.ts のスキーマ） */
-  width: min(860px, 92vw);
-  text-align: left;
   color: var(--body);
-  margin-top: var(--space-xs);
+  /**
+   * 残り幅いっぱいには広げない。額装の幅（858px）から
+   * リンクぶんを引くと約 680px あり、45字程度なら1行に収まってしまう。
+   * 30em（= 15px × 30 で約 30 字）で折り返して、
+   * 左のブロックとして塊に見えるようにする。
+   * 3行にならないよう note の字数上限（60字）と対にしてある。
+   */
+  flex: 0 1 auto;
+  max-width: 30em;
+  min-width: 0;
+}
+
+/* 折り返しても縮まない。一筆側が先に折り返す */
+.footLink {
+  composes: textLink from '../styles/components.module.css';
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .textLink {
@@ -235,7 +259,7 @@
 }
 
 .meta {
-  composes: labelMono from '../styles/type.module.css';
+  composes: label from '../styles/type.module.css';
   color: var(--meta);
 }
 
@@ -301,7 +325,7 @@
 }
 
 .rowIndex {
-  composes: labelMono from '../styles/type.module.css';
+  composes: label from '../styles/type.module.css';
   color: var(--meta);
 }
 
@@ -313,13 +337,13 @@
 }
 
 .rowMeta {
-  composes: labelMono from '../styles/type.module.css';
+  composes: label from '../styles/type.module.css';
   color: var(--meta);
   text-align: right;
 }
 
 .rowArrow {
-  composes: labelMono from '../styles/type.module.css';
+  composes: label from '../styles/type.module.css';
   color: var(--meta);
   text-align: right;
 }
@@ -366,6 +390,12 @@
 }
 
 @media (max-width: 900px) {
+  /* 横並びだと一筆の行長が足りない。縦に積んで左揃えを維持する */
+  .frameFoot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
   .frame {
     margin: 24px 0 16px;
   }

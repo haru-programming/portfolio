@@ -13,7 +13,7 @@
 }
 
 .eyebrow {
-  composes: labelMono from '../../styles/type.module.css';
+  composes: label from '../../styles/type.module.css';
   color: var(--meta);
   margin-bottom: 24px;
 }

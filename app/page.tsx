@@ -97,18 +97,21 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* 一筆。額装の左端に揃えることで、中央揃えの見出しに対して
-                「本文」ではなく「キャプション」として読ませる */}
-            {work.note ? <p className={styles.note}>{work.note}</p> : null}
-
-            <a
-              className={styles.textLink}
-              href={work.url}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              View Project <span className={styles.arrow}>→</span>
-            </a>
+            {/* 額装の下も上のバーと同じ2ブロックにする。
+                バーが「ドメイン左 / スタック右」なので、下を「一筆左 / リンク右」に
+                すると額装が上下から同じ組みで挟まれる。
+                note が無い案件でもリンクは右のまま（並びを揃える） */}
+            <div className={styles.frameFoot}>
+              <p className={styles.note}>{work.note ?? ''}</p>
+              <a
+                className={styles.footLink}
+                href={work.url}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                View Project <span className={styles.arrow}>→</span>
+              </a>
+            </div>
             {/* work.body（和文の説明）はここでは出さない。
                 モックアップの stage は年/役割・タイトル・額装・スタック・リンクだけで、
                 TOP に和文を持ち込むと unicode-range による「和文フォントを取得しない」

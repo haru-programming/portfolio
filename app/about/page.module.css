@@ -19,7 +19,7 @@
 }
 
 .eyebrowOnGradient {
-  composes: labelMono from '../../styles/type.module.css';
+  composes: label from '../../styles/type.module.css';
   color: var(--ink);
   margin-bottom: 24px;
 }
@@ -53,7 +53,7 @@
 }
 
 .meta {
-  composes: labelMono from '../../styles/type.module.css';
+  composes: label from '../../styles/type.module.css';
   color: var(--meta);
 }
 
@@ -71,7 +71,7 @@
 }
 
 .frameBar {
-  composes: labelMonoSm from '../../styles/type.module.css';
+  composes: labelSm from '../../styles/type.module.css';
   height: 30px;
   display: flex;
   align-items: center;
@@ -92,12 +92,12 @@
 
 /* placeholder 上では meta が AA に届かない。TOP の shotLabel と同じ理由で ink */
 .portraitLabel {
-  composes: labelMonoSm from '../../styles/type.module.css';
+  composes: labelSm from '../../styles/type.module.css';
   color: var(--ink);
 }
 
 .caption {
-  composes: labelMono from '../../styles/type.module.css';
+  composes: label from '../../styles/type.module.css';
   color: var(--meta);
   margin-top: 14px;
 }
@@ -132,7 +132,7 @@
 }
 
 .period {
-  composes: labelMono from '../../styles/type.module.css';
+  composes: label from '../../styles/type.module.css';
   color: var(--meta);
   line-height: 1.8;
 }
@@ -142,7 +142,7 @@
 }
 
 .role {
-  composes: labelMono from '../../styles/type.module.css';
+  composes: label from '../../styles/type.module.css';
   color: var(--meta);
   margin-top: 10px;
 }
@@ -183,7 +183,7 @@
 }
 
 .term {
-  composes: labelMono from '../../styles/type.module.css';
+  composes: label from '../../styles/type.module.css';
   color: var(--meta);
 }
 

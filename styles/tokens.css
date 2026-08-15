@@ -48,7 +48,10 @@
      Garamond に和文グリフが無いことに依存しているので順序を変えないこと。 */
   --font-body-stack: var(--font-body-latin), var(--font-body-jp), serif;
   --font-display-stack: var(--font-display), sans-serif;
-  --font-mono-stack: var(--font-mono), ui-monospace, monospace;
+  /* ラベルは display と同じ Jost。当初は IBM Plex Mono を充てていたが、
+     開発ツールや AI 系プロダクトの UI と結びつきが強すぎたため統合した。
+     書体は3つ（Jost / EB Garamond / Zen Old Mincho）になっている。 */
+  --font-label-stack: var(--font-display), system-ui, sans-serif;
 
   /* ---- spacing（base 4px） ---- */
   --space-xxs: 4px;

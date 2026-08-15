@@ -11,7 +11,7 @@
 }
 
 .item {
-  composes: navMono from '../styles/type.module.css';
+  composes: navLabel from '../styles/type.module.css';
   color: var(--ink);
   /* タッチターゲット 44px を満たすための余白 */
   padding: 15px 0;

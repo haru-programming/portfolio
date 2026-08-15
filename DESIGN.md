@@ -4,8 +4,8 @@ name: Haruna-Takeda-Portfolio
 description: >
   Front-end engineer's portfolio. A Bugatti-derived typographic discipline
   rebuilt on a light-spring (イエベ春ライト) pastel palette. Ivory canvas,
-  uppercase wide-tracked Jost display, mincho/Garamond serif body, IBM Plex
-  Mono for every label. The single non-typographic element is a slow WebGL
+  uppercase wide-tracked Jost display, mincho/Garamond serif body, Jost
+  again for every label. The single non-typographic element is a slow WebGL
   watercolour gradient that occupies the slot Bugatti reserves for
   photography. No gradients elsewhere, no shadows, no bold weights,
   0px corners on everything.
@@ -90,38 +90,38 @@ typography:
     fontWeight: 400
     lineHeight: 2.0
     letterSpacing: 0
-  label-mono:
-    fontFamily: "IBM Plex Mono, monospace"
+  label:
+    fontFamily: "Jost, sans-serif"
     fontSize: 11px
     fontWeight: 400
     lineHeight: 1.4
-    letterSpacing: 2px
+    letterSpacing: 1.2px
     textTransform: uppercase
-  label-mono-sm:
-    fontFamily: "IBM Plex Mono, monospace"
+  label-sm:
+    fontFamily: "Jost, sans-serif"
     fontSize: 10px
     fontWeight: 400
     lineHeight: 1.4
-    letterSpacing: 2px
+    letterSpacing: 1.2px
     textTransform: uppercase
-  nav-mono:
-    fontFamily: "IBM Plex Mono, monospace"
+  nav-label:
+    fontFamily: "Jost, sans-serif"
     fontSize: 12px
     fontWeight: 400
-    letterSpacing: 2px
+    letterSpacing: 1.2px
     textTransform: uppercase
-  button-mono:
-    fontFamily: "IBM Plex Mono, monospace"
+  button-label:
+    fontFamily: "Jost, sans-serif"
     fontSize: 14px
     fontWeight: 400
     lineHeight: 1.0
-    letterSpacing: 2.5px
+    letterSpacing: 1.6px
     textTransform: uppercase
-  link-mono:
-    fontFamily: "IBM Plex Mono, monospace"
+  link-label:
+    fontFamily: "Jost, sans-serif"
     fontSize: 12px
     fontWeight: 400
-    letterSpacing: 2.5px
+    letterSpacing: 1.6px
     textTransform: uppercase
 
 rounded:
@@ -142,7 +142,7 @@ components:
   top-nav:
     backgroundColor: transparent
     textColor: "{colors.ink}"
-    typography: "{typography.nav-mono}"
+    typography: "{typography.nav-label}"
     height: 56px
     layout: "MENU left / wordmark centred / CONTACT right"
   wordmark:
@@ -167,32 +167,32 @@ components:
     height: 30px
     borderBottomColor: "{colors.hairline}"
     textColor: "{colors.meta}"
-    typography: "{typography.label-mono-sm}"
+    typography: "{typography.label-sm}"
     padding: "0 {spacing.sm}"
   button-primary:
     backgroundColor: "{colors.accent}"
     textColor: "{colors.on-accent}"
     borderColor: "{colors.accent}"
-    typography: "{typography.button-mono}"
+    typography: "{typography.button-label}"
     rounded: "{rounded.none}"
     padding: "15px 32px"
   button-outline:
     backgroundColor: transparent
     textColor: "{colors.ink}"
     borderColor: "{colors.ink}"
-    typography: "{typography.button-mono}"
+    typography: "{typography.button-label}"
     rounded: "{rounded.none}"
     padding: "15px 32px"
   text-link:
     backgroundColor: transparent
     textColor: "{colors.ink}"
     borderBottomColor: "{colors.hairline-strong}"
-    typography: "{typography.link-mono}"
+    typography: "{typography.link-label}"
   spec-cell:
     backgroundColor: transparent
     textColor: "{colors.ink}"
     typography: "{typography.number-display}"
-    labelTypography: "{typography.label-mono-sm}"
+    labelTypography: "{typography.label-sm}"
     borderColor: "{colors.hairline-strong}"
     padding: "44px 0"
   list-row:
@@ -218,7 +218,7 @@ components:
     backgroundColor: "{colors.canvas}"
     textColor: "{colors.meta}"
     borderTopColor: "{colors.hairline}"
-    typography: "{typography.label-mono}"
+    typography: "{typography.label}"
     padding: "{spacing.xxl} {spacing.xl}"
 ---
 
@@ -241,9 +241,11 @@ appear nowhere else in the system.
 **Key characteristics**
 
 - Ivory canvas (`{colors.canvas}` `#FDFBF7`) — warm, never neutral grey, never white.
-- Three typefaces split by role and never crossed: **Jost** (uppercase display,
-  wordmark), **EB Garamond / Zen Old Mincho** (serif and mincho body copy),
-  **IBM Plex Mono** (every label, caption, nav item, button, and link).
+- Two typefaces split by role and never crossed: **Jost** (uppercase display,
+  wordmark, and every label, caption, nav item, button, and link) and
+  **EB Garamond / Zen Old Mincho** (serif and mincho body copy).
+  Labels were originally set in IBM Plex Mono; it read as a developer tool
+  rather than as a printed caption, so the label role was folded into Jost.
 - **Positive** letter-spacing at display sizes (2–6px), the inverse of the
   negative-tracking convention. The wordmark carries the widest at 6px.
 - Weight 300–400 only. The system has no bold.
@@ -274,7 +276,7 @@ appear nowhere else in the system.
 - **Ink** (`{colors.ink}` — `#3A322D`): all headings and primary text. A warm
   dark brown, not black — pure black fights the pastel and reads cold.
 - **Body** (`{colors.body}` — `#635850`): running body copy.
-- **Meta** (`{colors.meta}` — `#756A61`): mono labels, captions, footer links,
+- **Meta** (`{colors.meta}` — `#756A61`): labels, captions, footer links,
   periods, tech stacks.
 
 Contrast against `{colors.canvas}`: ink 12.1, body 6.6, meta 4.9 — all AA.
@@ -326,18 +328,20 @@ Never use a `grad-*` token as a section background.
 
 ### Families
 
-Three faces, split by role. The split is absolute.
+Two faces, split by role. The split is absolute.
 
-1. **Jost** (weight 300, 400) — every display heading and the wordmark. Always
-   uppercase, always positively tracked. A geometric sans in the Futura lineage.
+1. **Jost** (weight 300, 400) — two jobs. At display sizes it carries every
+   heading and the wordmark. At 10–14px it carries every label, eyebrow,
+   caption, nav item, button label, text link, period, and metadata line.
+   Always uppercase, always positively tracked. A geometric sans in the
+   Futura lineage.
 2. **EB Garamond** + **Zen Old Mincho** — all running body copy. Sentence case,
    no tracking. The serif/mincho body is what keeps the system from reading as
    a tech product page; it is the single most important choice in the palette.
-3. **IBM Plex Mono** — every label, eyebrow, caption, nav item, button label,
-   text link, period, and metadata line. Always uppercase, tracked 2–2.5px.
 
-Never set a button in Jost. Never set body copy in mono. Never set a label in
-the serif.
+Never set body copy in Jost. Never set a label in the serif. The line between
+the two roles is size, not family: 15px and up in the serif is body, 14px and
+down in Jost is a label.
 
 ### Hierarchy
 
@@ -351,11 +355,11 @@ the serif.
 | `{typography.number-display}` | 64px | 300 | −1px | Spec cell values |
 | `{typography.body-lg}` | 17px | 400 | 0 | Profile prose |
 | `{typography.body-md}` | 15px | 400 | 0 | Descriptions, list items |
-| `{typography.label-mono}` | 11px | 400 | 2px | Eyebrows, meta, stacks |
-| `{typography.label-mono-sm}` | 10px | 400 | 2px | Spec labels, frame bars |
-| `{typography.nav-mono}` | 12px | 400 | 2px | Nav items |
-| `{typography.button-mono}` | 14px | 400 | 2.5px | Button labels |
-| `{typography.link-mono}` | 12px | 400 | 2.5px | Underlined text links |
+| `{typography.label}` | 11px | 400 | 1.2px | Eyebrows, meta, stacks |
+| `{typography.label-sm}` | 10px | 400 | 1.2px | Spec labels, frame bars |
+| `{typography.nav-label}` | 12px | 400 | 1.2px | Nav items |
+| `{typography.button-label}` | 14px | 400 | 1.6px | Button labels |
+| `{typography.link-label}` | 12px | 400 | 1.6px | Underlined text links |
 
 ### Principles
 
@@ -364,13 +368,17 @@ the serif.
 - **No bold.** Emphasis comes from size, tracking, case, and family contrast.
 - **Japanese body copy runs at line-height 2.0–2.15.** Mincho at tight leading
   becomes unreadable; the generous leading is not optional.
-- **Mono is always uppercase.** Lowercase mono reads as code, not as a label.
+- **Labels are always uppercase.** Lowercase at label sizes reads as body copy.
   The one exception is a URL inside a frame bar.
 
 ### Substitutes
 
 Jost → Outfit or Futura. EB Garamond → Cormorant Garamond. Zen Old Mincho →
-Shippori Mincho. IBM Plex Mono → JetBrains Mono.
+Shippori Mincho.
+
+Do not reach for a monospace for the label role. It was tried (IBM Plex Mono)
+and reads as a code editor rather than as a caption plate — and its default
+zero carries a dot, which compounds the effect.
 
 ## Layout
 
@@ -417,16 +425,16 @@ wordmark centred, `CONTACT` right. No background, no border, no blur. It floats
 over whatever the stage beneath it is.
 
 **`stage-gl`** — Full-viewport section whose background is the WebGL canvas.
-Content is centred: mono eyebrow → display heading → optional CTA. Used exactly
+Content is centred: label eyebrow → display heading → optional CTA. Used exactly
 twice per page (opening and closing) as bookends.
 
 **`stage-work`** — Full-viewport section on a flat `{colors.wash-*}` fill. Content
-centred: mono year/role → project title → `frame` → mono tech stack →
-`text-link`. A running `01 / 06` counter sits top-right in mono.
+centred: label year/role → project title → `frame` → label tech stack →
+`text-link`. A running `01 / 06` counter sits top-right as a label.
 
 **`frame`** — The screenshot container. 1px `{colors.hairline-strong}` outline,
 `{colors.frame-fill}` white interior, 0px corners, `min(860px, 92vw)` wide, with
-a 30px `frame-bar` carrying the domain in mono. No traffic-light dots, no
+a 30px `frame-bar` carrying the domain and the tech stack as labels. No traffic-light dots, no
 rounded corners, no shadow — the frame is a hairline rectangle that happens to
 hold a website. Image area clamps to `min(52vh, 520px)` so the stage always
 fits one viewport.
@@ -440,12 +448,12 @@ fits one viewport.
 and 3px of descender clearance. Used instead of a second button wherever a
 boxed CTA would put two rectangles next to each other.
 
-**`spec-cell`** — Ferrari's spec block: a 64px Jost number over a 10px mono
+**`spec-cell`** — Ferrari's spec block: a 64px Jost number over a 10px
 uppercase label, hairline-strong above and below, no fill. Carries the
 quantitative credibility (years, sites shipped, Lighthouse, LCP).
 
-**`job-row`** — Career entry. 180px mono period column, then company name in
-`display-sm`, role in mono, and responsibilities as a bulleted list whose
+**`job-row`** — Career entry. 180px label period column, then company name in
+`display-sm`, role as a label, and responsibilities as a bulleted list whose
 markers are 6px hairline dashes rather than bullets.
 
 **`list-row`** — Lab entries. Grid of index / title / stack / arrow, hairline
@@ -490,7 +498,7 @@ fast enough to be visibly alive.
 - Keep the canvas `{colors.canvas}` ivory. Warm, never neutral grey.
 - Set every display heading in uppercase Jost 300 with positive tracking.
 - Keep body copy in the serif/mincho stack at line-height 2.0+.
-- Use mono uppercase for every label, caption, button, and link.
+- Use uppercase Jost at 10–14px for every label, caption, button, and link.
 - Use `{colors.accent}` exactly once per page, on the primary CTA.
 - Frame project screenshots. Let the wash be the stage and the screenshot the exhibit.
 - Keep 140px between editorial bands and give each stage a full viewport.
@@ -531,13 +539,13 @@ what protects the layout — never let the stage scroll internally.
 Canvas          #FDFBF7   ivory, the only page background
 Ink             #3A322D   warm dark brown, all headings
 Body            #635850   running copy
-Meta            #756A61   mono labels
+Meta            #756A61   labels
 Hairline        #EFE4DA / #DFD0C2
 Accent          #E8A697   once per page, on the primary CTA only
 Washes          #ECF7F2 / #FDF1E7 / #FDECEC / #FCF8E1
 Display         Jost 300, UPPERCASE, +2–6px tracking
 Body            EB Garamond / Zen Old Mincho, line-height 2.0+
-Labels          IBM Plex Mono, UPPERCASE, +2–2.5px tracking
+Labels          Jost 400, UPPERCASE, 10–14px, +1.2–1.6px tracking
 Radius          0px everywhere
 Shadows         none
 ```
@@ -545,26 +553,26 @@ Shadows         none
 ### Example prompts
 
 **Project stage** — "Build a 100vh section on a flat `#ECF7F2` background.
-Centre a column: an 11px IBM Plex Mono uppercase line with 2px tracking reading
+Centre a column: an 11px Jost uppercase line with 1.2px tracking reading
 the year and role, then a 44px Jost weight-300 uppercase title with 3px
 tracking, then a 860px-wide white rectangle with a 1px `#DFD0C2` border and a
-30px top bar holding a domain in 10px mono, then the tech stack in mono, then
-an uppercase mono text link with a 1px underline. No shadows, no rounded
-corners. A `01 / 06` mono counter sits top-right."
+30px top bar holding a domain and the tech stack in 10px Jost, then
+an uppercase Jost text link with a 1px underline. No shadows, no rounded
+corners. A `01 / 06` counter sits top-right in the same 11px Jost."
 
 **Career row** — "A row with a 180px left column holding the period in 11px
-mono uppercase, and a right column with the company in 24px Jost 300 uppercase
-with 1.5px tracking, the role in mono below, and responsibilities as a list
+Jost uppercase, and a right column with the company in 24px Jost 300 uppercase
+with 1.5px tracking, the role in 11px Jost below, and responsibilities as a list
 whose markers are 6px-wide 1px `#DFD0C2` dashes. 40px vertical padding, 1px
 `#DFD0C2` bottom border."
 
 **Spec band** — "Four equal columns on `#ECF7F2`, each with a 64px Jost 300
-number and a 10px mono uppercase label beneath, separated by 1px `#DFD0C2`
+number and a 10px uppercase Jost label beneath, separated by 1px `#DFD0C2`
 lines top and bottom. No fill on the cells, no borders between them."
 
 ### Iteration guide
 
-1. Start from the canvas, ink, and the three typefaces. Get the tracking right
+1. Start from the canvas, ink, and the two typefaces. Get the tracking right
    before anything else — it is the whole identity.
 2. Add hairlines for structure. Resist reaching for a card or a shadow.
 3. Add a wash only when a section needs to be a distinct stage.
