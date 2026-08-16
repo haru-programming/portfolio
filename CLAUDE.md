@@ -9,138 +9,167 @@ Web エンジニア（フロントエンド）の転職用ポートフォリオ�
 PDF の職務経歴書は用意しない方針。**About ページが職務経歴書の役割を兼ねる**ため、
 About は装飾ページではなく実用ページとして扱う。
 
-## 確定していること
+## 現在の状態
 
-デザインは確定済み。**`DESIGN.md` が唯一の正**で、色・タイポ・コンポーネント・
-Do/Don't がすべてトークン化されている。実装時の見た目の判断は必ずそこを参照する。
+**実装済み・公開済み。** 以下はすでに動いている。
 
-参考にした設計思想は Bugatti と Ferrari の DESIGN.md（awesome-design-md）。
-そこから以下を継承している。実装で崩しやすいので明記しておく。
-
-- **影を使わない。** 分離はすべて 1px のヘアライン。
-- **角丸 0px。** ボタン・フレーム・カード・入力欄すべて例外なし。
-- **font-weight は 300〜400 のみ。** 太字は存在しない。強弱はサイズ・字間・
-  大文字小文字・書体の役割分担で作る。
-- **字間はプラス方向。** 見出し 2〜4px、ワードマーク 6px。詰めると全部壊れる。
-- **アクセント色 `#E8A697` は 1ページに 1箇所だけ**（プライマリ CTA）。
-- 書体は3役割で厳密に分離。Jost（英字大文字の見出し）／EB Garamond + Zen Old
-  Mincho（本文）／IBM Plex Mono（ラベル・ボタン・リンク・メタ情報）。役割を跨がない。
-
-### ページ構成
-
-**TOP（`portfolio-cinema-v2.html`）**
-
-1. Hero — WebGL グラデーション背景、100vh、氏名
-2. Works — 1案件 = 1セクション（100vh）、フラットなパステル地に額装スクショ
-3. Lab — ヘアライン区切りの一覧
-4. Let's Talk — WebGL 背景、Contact ボタン
-5. Footer
-
-**About（`portfolio-about.html`）**
-
-1. Hero — WebGL
-2. Profile — 額装ポートレート + 本文
-3. 数値（経験年数 / 制作本数 / Lighthouse / LCP）
-4. Career — 各社の担当内容まで記載
-5. Capabilities
-6. Let's Talk + Footer
-
-## 手元のファイル
-
-| ファイル | 役割 |
+| | |
 |---|---|
-| `DESIGN.md` | デザインシステムの正。実装の判断基準 |
-| `portfolio-cinema-v2.html` | TOP の確定モックアップ。WebGL シェーダーの実装込み |
-| `portfolio-about.html` | About の確定モックアップ |
-| `portfolio-layouts.html` | 不採用のレイアウト案（Index / Split）。参考用 |
-| `portfolio-design.html` | 初期の配色検討用。参考用 |
+| リポジトリ | https://github.com/haru-programming/portfolio （public） |
+| 本番 | https://portfolio-harutasuumo.pages.dev |
+| ホスティング | Cloudflare Pages（GitHub 連携。push で自動デプロイ） |
 
-モックアップは単一 HTML ファイルで、CSS も JS もインラインで入っている。
-**WebGL のフラグメントシェーダーはそのまま移植して問題ない**（`DESIGN.md` の
-「The WebGL background」に仕様あり）。
+Cloudflare Pages のビルド設定は Framework preset **None** ／ Build command
+`npm run build` ／ Output directory `out`。Next.js のプリセットを選ぶと
+`npx next build` になり、`prebuild`（画像とフォントの生成）と `postbuild`
+（欠落文字の検証）が飛ばされてビルドが落ちる。
 
-コンテンツはすべて仮のダミー。実データは本人が用意する。
+Lighthouse は `/` と `/about` とも Accessibility / Best Practices / SEO が 100、
+Performance 99〜100、LCP 0.4〜0.9s、CLS 0。
 
-## 詰めたい技術要件
+## 確定した技術構成
 
-以下は未決定。優先度順。
+| 項目 | 決定 |
+|---|---|
+| フレームワーク | Next.js 16（App Router）+ TypeScript strict |
+| 出力 | `output: 'export'`（完全静的） |
+| スタイル | CSS Modules + `styles/tokens.css`。Tailwind は使わない |
+| コンテンツ | `content/**/*.mdx` の frontmatter を Zod で検証 |
+| クライアント JS | `components/GradientCanvas.tsx` の 1 つだけ |
 
-### 1. 技術スタック
+`DESIGN.md` が**デザインの唯一の正**。色・タイポ・コンポーネント・Do/Don't が
+トークン化されている。見た目の判断は必ずそこを参照し、**実装を変えたら
+`DESIGN.md` も直す**（食い違うと次に読む人が判断できなくなる）。
 
-推奨は **Astro + TypeScript**。理由:
+## 実装で踏んだ落とし穴
 
-- ページ数が少なく、大半が静的。React のランタイムを積む必要がない
-- WebGL は Astro の island として 1コンポーネントだけ hydrate すれば済む
-- MDX で案件データを書けるので、CMS を立てずに始められる
+同じ穴を掘り直さないための記録。どれも実際に起きた。
 
-代替案として Next.js（App Router）。将来ブログや動的な要素を足すなら。
-**この選択は最初に確定させたい。**
+### フォント
 
-### 2. 日本語フォントの配信 — ここが最大の技術的論点
+- **`next/font` の `fallback` に総称ファミリを入れてはいけない。**
+  `fallback: ['Georgia', 'serif']` は CSS 変数にそのまま展開されるので、
+  `--font-body-stack` が `..., Georgia, serif, zenOldMincho, ...` となる。
+  総称は必ずマッチするため和文が `serif` で止まり、**サイト全体の和文が
+  Hiragino Mincho ProN（OS の書体）で描かれていた**。総称は
+  `--font-body-stack` の末尾に一度だけ置く。
+- **和文が LCP 経路に無いか毎回確認する。** TOP は和文ゼロなので
+  `unicode-range` により明朝を取得しない。和文を TOP に足すとこの性質が壊れる。
+- サブセットは `noLayoutClosure: true`。GSUB の閉包を切らないと EB Garamond が
+  113 字の指定に対して 817 グリフ残る。カーニングは GPOS 側なので影響しない。
+- **コードのコメントも走査対象に入る。** 日本語コメントがそのまま和文サブセットに
+  焼かれて 275→428 字に膨らんだ。`stripComments` で落としている。
 
-`Zen Old Mincho` はフル一式で数 MB あり、そのまま Google Fonts から読むと
-LCP が壊れる。以下のいずれかを決める必要がある。
+### レイアウト
 
-- サブセット化してセルフホスト（本文の実使用文字だけ抽出）
-- 動的サブセット（Fontplus 等の有料サービス）
-- 見出しは英字（Jost）のみなので、明朝は本文だけ。`font-display: swap` +
-  段階的読み込みで許容範囲に収まる可能性もある
+- **ステージは 100vh 固定 + `overflow: hidden`。あふれると黙って切れる。**
+  額装の高さを増やすときは必ず短い縦幅（横向きスマホの 390〜430px）で実測する。
+  高さのメディアクエリは幅のものより**後**に書く。先に書くと
+  844x390 のような端末で `max-width: 900px` に負ける。
+- **sticky は「配置済み要素」なので、DOM 順が後の非配置要素より上に描かれる。**
+  Lab セクションに `z-index: 1` が無いと、固定中のステージの裏に回って
+  まるごと見えなくなる。
+- **`grid-row: 1 / -1` は `grid-template-rows` が無いと効かない。**
+  `-1` が明示グリッドの終端（=1行目）に解決される。`1 / span 2` と書く。
+- `composes` は単純なクラスセレクタにしか使えない。`.a b { composes: ... }` は不可。
+- グリッド項目には `min-width: 0` と `overflow-wrap: break-word` の両方が要る。
+  前者だけだと折り返せない長い語がボックスから溢れる。
 
-**計測してから決めたい。** サイト自体が「速度と可読性を大事にしている」と
-主張する内容なので、ここで Lighthouse が落ちるのは致命的。
+### 配信
 
-`EB Garamond` と `Zen Old Mincho` は `font-family` に並べるだけで、ラテン文字は
-Garamond、日本語は Zen Old Mincho に自動で振り分けられる（Garamond に和文
-グリフがないため）。この順序は変えないこと。
+- **Cloudflare Pages の `_headers` は同名ヘッダを上書きせず連結する。**
+  `/*` に `Cache-Control` を書くと静的アセットで
+  `max-age=0, ..., immutable` となり、先勝ちの `max-age=0` が効いて
+  `immutable` が無効になる。`Cache-Control` は重複しないパスにだけ書く。
 
-### 3. WebGL と初期表示
+### 検証のときの注意
 
-- LCP 要素は Hero の `h1`（テキスト）で、canvas ではない想定。要検証
-- canvas は JS 実行後に描画されるため、初期は CSS グラデーションのフォールバックが
-  見える。切り替わりが目立たないか確認
-- モバイルでのバッテリー／発熱。`IntersectionObserver` と DPR 1.5 上限は実装済みだが、
-  低スペック端末で静止画に切り替える閾値を設けるか検討
+- **デプロイ待ちは「中身」で判定する。** ハッシュ比較や存在チェックは
+  何度も誤判定した。ミニファイアが `grid-column`+`grid-row` を `grid-area` に
+  畳むなど、ソースの文字列は出力に無いことがある。
+- **本番の計測前に `document.fonts.ready` を待つ。** 待たないと基準値を測った
+  あとに Web フォントが差し替わって再レイアウトし、全項目が誤って落ちる。
+- 文字の衝突判定は要素のボックスではなく `Range` で**実描画範囲**を測る。
+  グリッド項目のボックスはトラック幅いっぱいに伸びるので判定にならない。
+- ローカルの `npm start`（python の簡易サーバー）は**無圧縮**。
+  モバイルの Lighthouse 値は当てにならない。実測は本番で。
 
-### 4. 案件スクショの扱い
+## 検証コマンド
 
-- 書き出しサイズと形式（AVIF / WebP、`srcset`）
-- フレーム内の表示領域は `min(44vh, 440px)` でクランプ済み。元画像のアスペクト比を
-  どう揃えるか（1440×900 で統一する想定）
-- 実案件の掲載可否。NDA がある案件は伏せるか、モザイク処理するか
+```bash
+npm run build          # prebuild で画像とフォント生成 → ビルド → postbuild で欠落文字検証
+npm start              # out/ をローカル配信（http://localhost:4399）
+npm run typecheck
+```
 
-### 5. コンテンツ管理
+`postbuild` の `verify-subsets.ts` は、ビルド結果の HTML に
+サブセット未収録の文字があるとビルドを落とす。豆腐を本番で出さないため。
 
-案件が 6件程度なら MDX 直書きで十分。将来増やす前提なら microCMS。
-更新頻度の見込みから決める。
+| スクリプト | 役割 |
+|---|---|
+| `scripts/fonts.config.ts` | 3 書体の素性。書体を足すときの変更点はここだけ |
+| `scripts/subset-fonts.ts` | サブセット生成（prebuild） |
+| `scripts/verify-subsets.ts` | 欠落文字の検出（postbuild） |
+| `scripts/optimize-images.ts` | スクショの AVIF/WebP 生成（prebuild） |
+| `scripts/make-icon.ts` | ファビコンを Jost の字形から生成（手動） |
 
-### 6. その他
+## ページ構成
 
-- ホスティング（Vercel / Cloudflare Pages）
-- OGP 画像（WebGL のキャプチャを静的書き出しするのが自然）
-- Contact は `mailto:` のままか、フォームを置くか（スパム対策とのトレードオフ）
-- アニメーション。現状スクロール演出は入っていない。入れるなら控えめに
-  （`DESIGN.md` の「静けさ」を壊さない範囲で）
-- アクセシビリティ。`prefers-reduced-motion` は対応済み。キーボード操作、
-  フォーカスリング（角丸 0px との整合）、見出しレベルの構造を要確認
-- 計測（Vercel Analytics 等）
+**TOP（`app/page.tsx`）**
 
-## 実装の順序（提案）
+Hero（通常スクロール）→ `#works` の sticky スタック → Footer。
+スタックの中で前の案件が `top:0` に貼りついたまま次が下から重なる。
+Hero はスタックの**外**なので、Hero → 1件目だけは普通のスクロール。
+Lab はスタックの最後に置いてあるが sticky ではなく、最後の案件の上に重なって流れる
+（sticky はスタックの最後の要素に固定時間を与えられないため、Lab がその役をかねる）。
 
-1. スタックを決めて雛形を作る
-2. `DESIGN.md` のトークンを CSS 変数 or Tailwind の theme に落とす
-3. フォント配信を決めて計測。**ここで LCP の見通しを立ててから先に進む**
-4. 静的なコンポーネント（nav / frame / spec-cell / job-row / footer）を実装
-5. WebGL コンポーネントを移植
-6. コンテンツを流し込む
-7. Lighthouse とアクセシビリティ検証、レスポンシブ調整
+**About（`app/about/page.tsx`）** Hero → Profile → Career → Capabilities → Let's Talk
 
-## 既知の注意点
+**Contact（`app/contact/page.tsx`）** 現在は `mailto:` の暫定版
 
-- **案件スクショを全画面ブリードさせない。** 他社サイトの配色がこのサイトの
-  パレットを飲み込み、文字の背景も不安定になる。必ず額装する（`DESIGN.md` 参照）
-- **`grad-*` と `wash-*` のトークンを混同しない。** 同じ色相でも、シェーダー内の
-  滲みとして使う濃度と、100vh のベタ塗りとして使う濃度は別物
-- **グラデーション上のテキストは必ず `ink`。** `meta` は彩度の高い箇所で
-  コントラスト不足になる
-- 各ステージは 100vh 固定。短い縦幅のビューポートではフレームの高さクランプが
-  レイアウトを守っているので、内部スクロールを発生させないこと
+## コンテンツの追加
+
+`content/works/*.mdx` の frontmatter。Zod がビルド時に検証する。
+
+```yaml
+order: 4                    # 表示順
+title: Niwa Houzing         # 英字（Jost の大文字で組むため）
+year: 2024
+role: Development           # 英字
+domain: niwahouzing.com     # 額装のバー左
+url: https://niwahouzing.com/
+stack: [WordPress, ...]     # 額装のバー右
+note: …                     # 額装の下の一筆。60字上限
+wash: lemon                 # aqua / peach / pink / lemon
+shot: niwa-houzing          # assets/shots/<この名前>.png（1440×900）
+```
+
+`note` の 60 字上限は表示側の `max-width: 30em` と対。片方だけ変えると
+3 行になってステージからあふれる。
+
+スクリーンショットは `assets/shots/` に 1440×900 で置く（原寸はコミットする。
+変換結果の `public/shots/` は .gitignore）。
+
+## 残っていること
+
+1. **Contact フォーム** — Cloudflare Pages Functions + Turnstile + Resend。
+   3つとも無料枠で収まることは確認済み（Functions 10万req/日、
+   Turnstile siteverify 100万/月、Resend 3,000通/月）。
+   MailChannels は 2024年6月に無料提供を終了しているので使わない。
+2. **CI の予算チェック** — `size-limit` で JS 予算（実測 173.4KB gz が基準）、
+   `@lhci/cli` で LCP/CLS/TBT のしきい値。静的サイトに React を載せた判断を
+   説明可能にするための担保。
+3. **実コンテンツ** — 実績3件（Atelier Nagi / Kotoha / Hinata Books）と
+   Lab 5件がダミー。URL も `example.com`。Niwa Houzing の `note` も未記入。
+4. **About の経歴** — ダミーのまま。
+
+## 作業のときの注意
+
+- **案件スクショを全画面ブリードさせない。** 他社サイトの配色がパレットを
+  飲み込む。必ず額装する（`DESIGN.md`）。
+- `grad-*` と `wash-*` を混同しない。シェーダー内の滲みと 100vh のベタ塗りは別物。
+- グラデーションと彩度のある wash の上のテキストは必ず `ink`。`meta` は
+  コントラストが足りない（実測で 4.35 だった箇所がある）。
+- 見た目を変えたら**必ず複数の画面サイズで実測する**。特に縦が短い端末。
+  headless Chrome を CDP で直接叩く方法が確実（ブラウザペインは
+  非表示だと描画が止まり、スクリーンショットが壊れる）。

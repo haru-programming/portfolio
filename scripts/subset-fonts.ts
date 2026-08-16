@@ -1,5 +1,5 @@
 /**
- * ビルド時に4書体を「そのビルドで実際に描画されうる文字」だけに絞り込む。
+ * ビルド時に各書体を「そのビルドで実際に描画されうる文字」だけに絞り込む。
  *
  * なぜ必要か（計測値）:
  *   Google Fonts は Zen Old Mincho を 122 個の unicode-range スライスに割って配信する。
@@ -220,9 +220,12 @@ const main = async (): Promise<void> => {
         charsDownloaded: 1560,
       },
       latin: {
-        // それぞれの latin スライス（U+0000-00FF を含む @font-face）の実測値
-        bytes: 26588 + 23848 + 10052,
-        requests: 3,
+        // それぞれの latin スライス（U+0000-00FF を含む @font-face）の実測値。
+        // Jost 26,588 + EB Garamond 23,848。
+        // ラベルを Jost に統合して IBM Plex Mono（10,052）が不要になったので、
+        // 比較対象からも外してある。
+        bytes: 26588 + 23848,
+        requests: 2,
       },
     },
     comparison: jp
@@ -235,11 +238,11 @@ const main = async (): Promise<void> => {
             timesSmaller: Number((443668 / jp.bytes).toFixed(1)),
           },
           overall: {
-            baselineBytes: 443668 + 60488,
-            baselineRequests: 30,
+            baselineBytes: 443668 + 50436,
+            baselineRequests: 29,
             bytes: total,
             requests: results.length,
-            timesSmaller: Number(((443668 + 60488) / total).toFixed(1)),
+            timesSmaller: Number(((443668 + 50436) / total).toFixed(1)),
           },
         }
       : null,

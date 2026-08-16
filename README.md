@@ -20,8 +20,8 @@ About ページの和文 231 字はそのうち **27 スライス**に散らば�
 
 | | Google Fonts | このリポジトリ |
 |---|---|---|
-| 和文（Zen Old Mincho） | 433.3 KB / 27 リクエスト | **66.9 KB / 1 リクエスト** |
-| 全書体の合計 | 492.3 KB / 30 リクエスト | **97.1 KB / 4 リクエスト** |
+| 和文（Zen Old Mincho） | 433.3 KB / 27 リクエスト | **65.3 KB / 1 リクエスト** |
+| 全書体の合計 | 482.5 KB / 29 リクエスト | **87.6 KB / 3 リクエスト** |
 
 Zen Old Mincho の原本は 5,315KB で、そこから 98.7% を落としています。
 
@@ -35,10 +35,14 @@ Zen Old Mincho の原本は 5,315KB で、そこから 98.7% を落としてい�
    なっていました。切ると 130 グリフ・13.3KB です。カーニングは GPOS 側なので影響しないことを
    実測で確認しています（AV=-140 / To=-105 / Wa=-100 が有効無効で一致）。
 
-3. **`@font-face` に `unicode-range` を付ける。** 和文が 1 字も無い TOP ページでは、
-   ブラウザが和文 woff2 のリクエスト自体を出しません。
-   `DESIGN.md` の「EB Garamond → Zen Old Mincho の順序を変えない」という規則を
-   CSS レベルで担保することにもなります。
+3. **`@font-face` に `unicode-range` を付ける。** 明朝が和文以外に使われないことを
+   CSS レベルで担保でき、和文を含まないページではリクエスト自体が発生しません。
+   `DESIGN.md` の「EB Garamond → Zen Old Mincho の順序を変えない」という規則の裏づけです。
+
+   関連して、`next/font` の `fallback` に総称ファミリ（`serif`）を入れてはいけません。
+   CSS 変数にそのまま展開され、`..., Georgia, serif, zenOldMincho, ...` となって
+   和文が `serif` で止まります。実際これでサイト全体の和文が OS の書体で描かれていました。
+   総称はスタックの末尾に一度だけ置きます。
 
 ### 豆腐を出さないための検証
 
@@ -67,8 +71,9 @@ TOP の LCP 要素は Hero の `h1`（Jost）です。背景の WebGL キャン�
 [LCP の候補要素ではない](https://web.dev/articles/lcp)ため（CSS グラデーションも同様）、
 シェーダーの描画は LCP に影響しません。preload しているのは Jost だけです。
 
-TOP ページが取得するフォントは Jost と IBM Plex Mono の 2 ファイル・16.9KB だけです。
-和文が 1 字も無いので、`unicode-range` により明朝はリクエストされません。
+書体は Jost（見出しとラベル）と EB Garamond / Zen Old Mincho（本文）の 2 系統です。
+ラベルは当初 IBM Plex Mono で組んでいましたが、開発ツールの UI に見えるため
+Jost に統合しました。配信は 1 ファイル減っています。
 
 ### キャッシュ
 
@@ -93,11 +98,12 @@ npm start             # out/ をローカル配信
 
 | スクリプト | 役割 |
 |---|---|
-| `scripts/fonts.config.ts` | 4 書体の素性。書体を足すときの変更点はここだけ |
+| `scripts/fonts.config.ts` | 3 書体の素性。書体を足すときの変更点はここだけ |
 | `scripts/fetch-fonts.ts` | 元TTF の取得 |
 | `scripts/subset-fonts.ts` | サブセット生成（prebuild） |
 | `scripts/verify-subsets.ts` | 欠落文字の検出（postbuild） |
+| `scripts/optimize-images.ts` | スクショの AVIF/WebP 生成（prebuild） |
 
 ## ライセンス
 
-4 書体とも SIL Open Font License。`assets/fonts-src/OFL.txt` を参照。
+3 書体とも SIL Open Font License。`assets/fonts-src/OFL.txt` を参照。
