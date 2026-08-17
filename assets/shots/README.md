@@ -11,8 +11,8 @@ AVIF / WebP / JPEG を `public/shots/` へ書き出す。
 
 | 案件 | 置くファイル |
 |---|---|
+| ARUTEGA | `arutega.png` |
 | Niwa Houzing | `niwa-houzing.png` |
-| Atelier Nagi | `atelier-nagi.png` |
 | Kotoha Inc. | `kotoha.png` |
 | Hinata Books | `hinata-books.png` |
 
