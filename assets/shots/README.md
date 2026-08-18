@@ -12,9 +12,9 @@ AVIF / WebP / JPEG を `public/shots/` へ書き出す。
 | 案件 | 置くファイル |
 |---|---|
 | ARUTEGA | `arutega.png` |
-| Niwa Houzing | `niwa-houzing.png` |
-| Kotoha Inc. | `kotoha.png` |
+| SANWAGOSEN | `sanwagosen.png` |
 | Hinata Books | `hinata-books.png` |
+| Niwa Houzing | `niwa-houzing.png` |
 
 額装の表示領域は最大 858 × 440 なので、16:10 の原寸は上下が切り取られる。
 `object-position: top` を指定してあるので、サイトの上部（ヘッダーとヒーロー）が残る。

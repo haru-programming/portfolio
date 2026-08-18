@@ -91,6 +91,11 @@ Performance 99〜100、LCP 0.4〜0.9s、CLS 0。
   あとに Web フォントが差し替わって再レイアウトし、全項目が誤って落ちる。
 - 文字の衝突判定は要素のボックスではなく `Range` で**実描画範囲**を測る。
   グリッド項目のボックスはトラック幅いっぱいに伸びるので判定にならない。
+- **headless の `document.visibilityState` は `hidden` のまま。** そのため
+  `requestAnimationFrame` が回らず、オープニング演出のあるサイトは永久に
+  終わらない（案件スクショを撮るとき真っ白になった）。CDP の
+  `Emulation.setFocusEmulationEnabled` と `Page.setWebLifecycleState` で直る。
+  `--virtual-time-budget` は仮想時間を飛ばすので演出を壊す。併用しない。
 - ローカルの `npm start`（python の簡易サーバー）は**無圧縮**。
   モバイルの Lighthouse 値は当てにならない。実測は本番で。
 
